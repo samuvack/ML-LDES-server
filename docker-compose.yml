@@ -1,0 +1,35 @@
+version: '3'
+volumes:
+  geo-db-data:
+  nifi-database-repository:
+  nifi-flowfile-repository:
+  nifi-content-repository:
+  nifi-provenance-repository:
+  nifi-state:
+  nifi-logs:
+  nifi-nars:
+  nifi-conf:
+
+services:
+  dba:
+    image: dpage/pgadmin4:latest
+    container_name: ldes-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ldes@ldes.be
+      PGADMIN_DEFAULT_PASSWORD: ldes
+    ports:
+      - 8001:80
+    depends_on:
+      - postgis
+  
+  postgis:
+    build: ./docker/postgis
+    container_name: ldes-postgis
+    environment:
+      POSTGRES_DB: iow
+      POSTGRES_USER: ldes
+      POSTGRES_PASSWORD: ldes
+    volumes:
+        - geo-db-data:/var/lib/postgresql
+    ports:
+      - 5432:5432
