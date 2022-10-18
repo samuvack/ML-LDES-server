@@ -1,23 +1,18 @@
 ![](https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png)
+***
+
+# 
 
 
----
+## Quick start
+***
 
-# h1 Heading 8-)
-## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
-###### h6 Heading
-
-
-## Horizontal Rules
-
-___
-
----
-
+## Documentation
 ***
 
 
-## Typographic replacements
+## What's included
+***
+
+
+
