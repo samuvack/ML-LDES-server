@@ -7,6 +7,8 @@ seaborn # nice layout
 scikit-learn
 operator
 matplotlib
+requests
+attrs
 
 ###### Requirements with Version Specifiers ######
 
