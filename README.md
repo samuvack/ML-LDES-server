@@ -2,7 +2,7 @@
   <img src="[http://some_place.com/image.png]()" />
 </p>
 
-![](https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png)
+![](https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png){width="800" height="600" style="display: block; margin: 0 auto" }
  
 
 ## Quick start
