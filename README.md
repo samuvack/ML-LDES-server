@@ -60,7 +60,7 @@ this will be automatically converted to json-ld under the hood:
 "temperature": "10"
 }
 ```
-Hereafter, json-ld is being crawled on the predefined relevant parameters (e.g., temperature, salinity).
+Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
 
 Based on a given salinity value, the temperature is predicted using the trained ML regression models (see figure).
 
