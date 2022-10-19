@@ -4,6 +4,9 @@ import sys
 import rdflib
 import sys
 import data_processing.ttl2jsonld
+import data_processing.crawled
+import ml_tests.regression_input
+
 
 class webserverHandler(BaseHTTPRequestHandler):
     """docstring for webserverHandler"""
@@ -45,36 +48,30 @@ class webserverHandler(BaseHTTPRequestHandler):
             self.send_header('Content-Type', 'text/html')
             self.end_headers()
             ctype, pdict = cgi.parse_header(self.headers.get('Content-Type'))
-            print(ctype)
-            if ctype == 'application/n-triples':
-                fields = cgi.parse(self.rfile)
-                print(fields)
-                message_content = fields.get('message')
-                print(message_content)
+
+
             content_len = int(self.headers.get('Content-length'))
             post_body = self.rfile.read(content_len)
             #pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
             #pdict['CONTENT-LENGTH'] = content_len
+            print('POST request input:')
             print(post_body)
+
+            print('--Nu gaan we Linear model runnen--')
+            print('Schatting temperatuur volgens linear regression:')
+            print(ml_tests.regression_input.run_linear_model(33))
+            temp_ml_lin = str(ml_tests.regression_input.run_linear_model(33))
 
             ##CONVERSION TO JSON-LD
             print('conversion to json-ld:')
             print(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
 
+            graph = data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body)
+            temperature = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/temperature', graph)
+            print('crawled temperature is :' + temperature)
 
-
-
-
-            test = str(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
-            print(test)
-
-            output = ''
-            output += '@prefix ns0: <https://www.w3schools.com/rdf/> . '
-            output += ' '
-            output += '<https://www.w3schools.com>'
-            output += 'ns0: salinity 10 ;'
-            output += 'ns1: temperature 20 ;'
             self.wfile.write(test.encode())
+            print('respons :')
             print(output)
         except:
             self.send_error(404, "{}".format(sys.exc_info()[0]))

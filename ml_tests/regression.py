@@ -19,6 +19,8 @@ from sklearn.linear_model import LinearRegression
 lin_df = LinearRegression()  
 lin_df.fit(X_train, y_train)
 
+
+
 y_pred = lin_df.predict(X_test)                                     # Predict Linear Model
 accuracy_score = lin_df.score(X_test, y_test)                       # Accuracy score
 print("Linear Regression Model Accuracy Score: " + "{:.1%}".format(accuracy_score))
