@@ -37,7 +37,7 @@ When the ML model has calculated to predicted temperature based on the given sal
 
 ## Test
 
-example of LDES member:
+Example of LDES member:
 
 ```
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -45,5 +45,7 @@ example of LDES member:
 dcterms:temperature "10"@en ;
 dcterms:salinity "20"@en .
 ```
+
+send by POST request on `http://localhost:8000` with headers (key: 'Content-Type', value: 'application/n-triples')
 
 
