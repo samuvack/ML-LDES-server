@@ -23,7 +23,13 @@ python data_processing/server.py
 
 ## Documentation
 
-The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model. As a test, it was currently chosen to apply different regression models to the data.
+The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model. As a test, it was currently chosen to apply different regression models to the data:
+-linear regression
+-multiple linear regression
+-polynomial regression
+-decision tree regression
+-random forest regression
+
 
 ## What's included
 
