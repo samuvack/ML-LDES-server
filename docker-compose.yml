@@ -33,3 +33,9 @@ services:
         - geo-db-data:/var/lib/postgresql
     ports:
       - 5432:5432
+  
+  notebook:
+    image: bgruening/docker-jupyter-notebook
+    container_name: jupyter-notebook
+    ports:
+      - 7777:8888

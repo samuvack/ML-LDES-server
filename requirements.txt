@@ -2,7 +2,6 @@
 
 numpy # linear algebra
 pandas # data processing, CSV file I/O (e.g. pd.read_csv)
-matplotlib.pyplot # for plotting
 seaborn # nice layout
 scikit-learn
 operator
