@@ -67,3 +67,9 @@ Based on a given salinity value, the temperature is predicted using the trained 
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test copy.png?raw=true"/>
 </p>
+
+
+Of course a better way is by looking at the temporal scale (and even better spatio-temporal scale)
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test copy.png?raw=true"/>
+</p>
