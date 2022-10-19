@@ -3,7 +3,7 @@ import cgi
 import sys
 import rdflib
 import sys
-from . import convert_rdf_2_jsonld
+import data_processing.ttl2jsonld
 
 class webserverHandler(BaseHTTPRequestHandler):
     """docstring for webserverHandler"""
@@ -57,16 +57,16 @@ class webserverHandler(BaseHTTPRequestHandler):
             #pdict['CONTENT-LENGTH'] = content_len
             print(post_body)
 
-            testrdf = """
-            @prefix dcterms: <http://purl.org/dc/terms/> .
-            <http://example.org/about>
-            dcterms:temperature "10"@en ;
-            dcterms:salinity "20"@en .
-            """
+            ##CONVERSION TO JSON-LD
+            print('conversion to json-ld:')
+            print(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
 
-            print(testrdf)
-            print('conversion:')
-            print(convert_rdf_2_jsonld(post_body))
+
+
+
+
+            test = str(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
+            print(test)
 
             output = ''
             output += '@prefix ns0: <https://www.w3schools.com/rdf/> . '
@@ -74,7 +74,7 @@ class webserverHandler(BaseHTTPRequestHandler):
             output += '<https://www.w3schools.com>'
             output += 'ns0: salinity 10 ;'
             output += 'ns1: temperature 20 ;'
-            self.wfile.write(output.encode())
+            self.wfile.write(test.encode())
             print(output)
         except:
             self.send_error(404, "{}".format(sys.exc_info()[0]))
