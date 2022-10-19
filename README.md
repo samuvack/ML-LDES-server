@@ -60,7 +60,7 @@ this will be automatically converted to json-ld under the hood:
 "temperature": "10"
 }
 ```
-Hereafter, json-ld is being crawled on the predefined relevant parameters (e.g., temperature, salinity).
+Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
 
 Based on a given salinity value, the temperature is predicted using the trained ML regression models (see figure).
 
@@ -69,7 +69,7 @@ Based on a given salinity value, the temperature is predicted using the trained 
 </p>
 
 
-Of course a better way is by looking at the temporal scale (and even better spatio-temporal scale)
+Of course a better way is by looking at the temporal scale (and even better spatio-temporal scale) instead of looking at all the historical measurments at ones (e.g. the case of regression models).
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test copy.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/timeseries2.png?raw=true"/>
 </p>
