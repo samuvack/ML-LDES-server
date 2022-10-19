@@ -13,6 +13,9 @@ Second, you need to start docker. You can do this by the following command (firs
 ```
 docker-compose up --build -d
 ```
+runs jupyter notebook on 'http://localhost:7777/ipython/'
+runs postgis on 'http://localhost:5432'
+runs pgadmin on 'http://localhost:8001'
 
 Afterwards, it becomes possible to run the ML-LDES server by the following command:
 ```
