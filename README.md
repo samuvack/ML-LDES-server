@@ -48,7 +48,7 @@ dcterms:salinity "20"@en .
 
 send by POST request on `http://localhost:8000` with headers (key: 'Content-Type', value: 'application/n-triples')
 
-this will be automatically converted to json-ld:
+this will be automatically converted to json-ld under the hood:
 ```
 {
 "@context": {
@@ -60,6 +60,5 @@ this will be automatically converted to json-ld:
 "temperature": "10"
 }
 ```
-
 Hereafter, json-ld is being crawled on the predefined relevant parameters (e.g., temperature, salinity).
 
