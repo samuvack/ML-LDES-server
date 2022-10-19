@@ -65,7 +65,7 @@ Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extr
 Based on a given salinity value, the temperature is predicted using the trained ML regression models (see figure).
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test copy.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plots.png?raw=true"/>
 </p>
 
 
