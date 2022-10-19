@@ -65,5 +65,5 @@ Hereafter, json-ld is being crawled on the predefined relevant parameters (e.g.,
 Based on a given salinity value, the temperature is predicted using the trained ML regression models (see above).
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/test copy.png?raw=true"/>
 </p>
