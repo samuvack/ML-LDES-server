@@ -6,6 +6,7 @@ import sys
 import data_processing.ttl2jsonld
 import data_processing.crawled
 import ml_tests.regression_input
+import ml_tests.add_tripple
 
 
 class webserverHandler(BaseHTTPRequestHandler):
@@ -69,6 +70,9 @@ class webserverHandler(BaseHTTPRequestHandler):
             graph = data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body)
             temperature = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/temperature', graph)
             print('crawled temperature is :' + temperature)
+
+            ##ADD PREDICTION TO GRAPH
+            
 
             self.wfile.write(test.encode())
             print('respons :')
