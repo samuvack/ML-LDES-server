@@ -7,16 +7,16 @@ The Machine Learning (ML) server for Linked Data Event Streams (LDES) is a confi
 ## Quick start
 First, you need the run the following command. This will install the packages according to the configuration file requirements.txt.
 ```
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 Second, you need to start docker. You can do this by the following command (first open docker desktop in admin mode):
 ```
-$ docker-compose up --build -d
+docker-compose up --build -d
 ```
 
 Afterwards, it becomes possible to run the ML-LDES server by the following command:
 ```
-$ python3 server.py
+python3 server.py
 ```
 
 
