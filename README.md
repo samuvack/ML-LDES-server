@@ -24,12 +24,13 @@ python data_processing/server.py
 ## Documentation
 
 The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model. As a test, it was currently chosen to apply different regression models to the data:
--linear regression
--multiple linear regression
--polynomial regression
--decision tree regression
--random forest regression
+*linear regression
+*multiple linear regression
+*polynomial regression
+*decision tree regression
+*random forest regression
 
+When the ML model has calculated to predicted temperature based on the given salinity value, a JSON respons is send back with all the output data.
 
 ## What's included
 
