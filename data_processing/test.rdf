@@ -1,3 +1,0 @@
-@prefix dcterms: <http://purl.org/dc/terms/> .
-<http://example.org/about>
-dcterms:title "Someone's Homepage"@en .
