@@ -8,6 +8,7 @@ operator
 matplotlib
 requests
 attrs
+rdflib
 
 ###### Requirements with Version Specifiers ######
 
