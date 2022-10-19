@@ -14,9 +14,7 @@ Second, you need to start docker. You can do this by the following command (firs
 docker-compose up --build -d
 ```
 
-Afterwards, it becomes possible to run the ML-LDES server by the following command (depending on the version of python, use ```
-python server.py
-``` or :
+Afterwards, it becomes possible to run the ML-LDES server by the following command (depending on the version of python, use `python server.py` or :
 ```
 python3 server.py
 ```
