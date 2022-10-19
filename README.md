@@ -19,7 +19,7 @@ docker-compose up --build -d
 
 Afterwards, it becomes possible to run the ML-LDES server by the following command:
 ```
-python data_processing/server.py
+python server.py
 ```
 
 
