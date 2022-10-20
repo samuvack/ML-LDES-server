@@ -15,6 +15,6 @@ def add_tripple_to_graph(graph_input) #, s_input, p_input, o_input
     g.add((bob, FOAF.knows, linda))
     g.add((linda, RDF.type, FOAF.Person))
     g.add((linda, FOAF.name, Literal("Linda")))
-    print(g.serialize())
+    #print(g.serialize())
     return g
 

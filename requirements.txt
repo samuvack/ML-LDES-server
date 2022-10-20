@@ -11,7 +11,7 @@ attrs
 rdflib
 dash
 pyorbital
-
+lru_cache
 
 ###### Requirements with Version Specifiers ######
 

@@ -84,8 +84,6 @@ def run_decisiontreeregressor(x_input):
     dt_predict = dt_reg.predict([[x_input]])
     return dt_predict[0]
 
-print(run_linear_model(33))
-print(run_decisiontreeregressor(33))
-print(run_multiple_lin_regression(33))
+print('training Machine Learning models')
 
 
