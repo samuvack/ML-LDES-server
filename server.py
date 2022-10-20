@@ -6,7 +6,7 @@ import sys
 import data_processing.ttl2jsonld
 import data_processing.crawled
 import ml_tests.regression_input
-import ml_tests.add_tripple
+#import ml_tests.add_tripple
 
 
 class webserverHandler(BaseHTTPRequestHandler):
@@ -45,7 +45,7 @@ class webserverHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            self.send_response(301)
+            self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.end_headers()
             ctype, pdict = cgi.parse_header(self.headers.get('Content-Type'))

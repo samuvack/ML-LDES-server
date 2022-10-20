@@ -9,6 +9,9 @@ matplotlib
 requests
 attrs
 rdflib
+dash
+pyorbital
+
 
 ###### Requirements with Version Specifiers ######
 
