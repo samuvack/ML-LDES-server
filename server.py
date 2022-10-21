@@ -90,26 +90,32 @@ class webserverHandler(BaseHTTPRequestHandler):
                 # LINEAR REGRESSION
                 print('--running regression models--')
                 print('estimated temperature based on linear regression:')
-                print(ml_tests.regression_input.run_linear_model(int(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_linear_model(int(salinity)))
-
-                # MULTIPLE LINEAR REGRESSION
-                print('estimated temperature based on linear regression:')
-                print(ml_tests.regression_input.run_linear_model(int(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_linear_model(int(salinity)))
+                print(ml_tests.regression_input.run_linear_model(float(salinity)))
+                temp_ml_lin = str(ml_tests.regression_input.run_linear_model(float(salinity)))
 
                 # POLYNOMIAL REGRESSION
-                print('estimated temperature based on linear regression:')
-                print(ml_tests.regression_input.run_linear_model(int(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_linear_model(int(salinity)))
+                print('estimated temperature based on polynomial regression:')
+                print(ml_tests.regression_input.run_polynomial_regression(float(salinity)))
+                temp_ml_lin = str(ml_tests.regression_input.run_polynomial_regression(float(salinity)))
+
+                # DECISION TREE REGRESSION
+                print('estimated temperature based on decision tree regression:')
+                print(ml_tests.regression_input.run_decisiontreeregressor(float(salinity)))
+                temp_ml_lin = str(ml_tests.regression_input.run_decisiontreeregressor(float(salinity)))
+
+                # RANDOM FOREST MODEL
+                print('estimated temperature based on random forest regression:')
+                print(ml_tests.regression_input.run_random_forest(float(salinity)))
+                temp_ml_lin = str(ml_tests.regression_input.run_random_forest(float(salinity)))
 
                 
-                One().set_a(temp_ml_lin)
                 
                 output = ""
                 output += '<html><body>&#161Hola <a href="/hello">Back to Hello</a>'
                 output += '<form method="POST" enctype="multipart/form-data" action="/hello"><h2> What would you like me to say?</h2><input name="message" type="text" /><input type="submit" value="Submit" /></form>'
                 output += '</body></html>'
+
+                One().set_a(output)
 
                 ##ADD PREDICTION TO GRAPH
                 test = output
