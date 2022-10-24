@@ -78,8 +78,6 @@ Of course a better way is by looking at the temporal scale (and even better spat
   
   As a test, Holt Winters forecasting model from the Python package River was tested. Holt-Winters forecasting is a way to model and predict the behavior of a sequence of values over time—a time series. Holt-Winters is one of the most popular forecasting techniques for time series.
   
-  
-  ![gif](https://github.com/samuvack/ML-LDES-server/blob/master/ml_tests/images/movie.gif)
 
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/ml_tests/images/movie.gif?raw=true"/>
