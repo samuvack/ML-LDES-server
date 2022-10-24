@@ -88,6 +88,12 @@ class webserverHandler(BaseHTTPRequestHandler):
                 salinity = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/salinity', g)
                 print('crawled salinity is :' + salinity)
 
+                time = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/time', g)
+                print('crawled time is :' + time)
+
+                temperature = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/temperature', g)
+                print('crawled temperature is :' + temperature)
+
                 # LINEAR REGRESSION
                 print('--running regression models--')
                 print('estimated temperature based on linear regression:')
