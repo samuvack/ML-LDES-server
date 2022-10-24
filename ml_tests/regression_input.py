@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split, cross_val_score, cross_val
 import operator
 
 print('training Machine Learning models')
-bottle = pd.read_csv("../data/bottle.csv")
+bottle = pd.read_csv("data/bottle.csv")
 
 # Extract 2 columns 'T_degC','Salnty' for pure and better showing
 bottle_df = bottle[['T_degC','Salnty']]

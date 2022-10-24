@@ -6,10 +6,11 @@ import sys
 import data_processing.ttl2jsonld
 import data_processing.crawled
 import ml_tests.regression_input
-#import ml_tests.add_tripple
+#import data_processing.add_tripple
 from rdflib import Graph, plugin
 from functools import lru_cache
-
+from rdflib import Graph, URIRef, Literal, BNode
+from rdflib.namespace import FOAF, RDF
 
 
 @lru_cache(maxsize=2048)
@@ -91,35 +92,32 @@ class webserverHandler(BaseHTTPRequestHandler):
                 print('--running regression models--')
                 print('estimated temperature based on linear regression:')
                 print(ml_tests.regression_input.run_linear_model(float(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_linear_model(float(salinity)))
+                temp_lin = str(ml_tests.regression_input.run_linear_model(float(salinity)))
+                temp_lin = Literal(temp_lin)
 
-                # POLYNOMIAL REGRESSION
+                # MULTIPLE LINEAR REGRESSION
                 print('estimated temperature based on polynomial regression:')
-                print(ml_tests.regression_input.run_polynomial_regression(float(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_polynomial_regression(float(salinity)))
+                print(ml_tests.regression_input.run_multiple_lin_regression(float(salinity)))
+                temp_mul_lin = str(ml_tests.regression_input.run_multiple_lin_regression(float(salinity)))
+                temp_mul_lin = Literal(temp_mul_lin)
 
                 # DECISION TREE REGRESSION
                 print('estimated temperature based on decision tree regression:')
                 print(ml_tests.regression_input.run_decisiontreeregressor(float(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_decisiontreeregressor(float(salinity)))
+                temp_dec_tree = str(ml_tests.regression_input.run_decisiontreeregressor(float(salinity)))
+                temp_dec_tree = Literal(temp_dec_tree)
 
-                # RANDOM FOREST MODEL
-                print('estimated temperature based on random forest regression:')
-                print(ml_tests.regression_input.run_random_forest(float(salinity)))
-                temp_ml_lin = str(ml_tests.regression_input.run_random_forest(float(salinity)))
+                #ADDING TON JSON-LD
+                g.add((Literal('temp_lin'), RDF.value, temp_lin))
+                g.add((Literal('temp_mul_lin'), RDF.value, temp_mul_lin))
+                g.add((Literal('temp_dec_tree'), RDF.value, temp_dec_tree))
+                print(g.serialize())
+                test = str(g.serialize())
 
-                
-                
-                output = ""
-                output += '<html><body>&#161Hola <a href="/hello">Back to Hello</a>'
-                output += '<form method="POST" enctype="multipart/form-data" action="/hello"><h2> What would you like me to say?</h2><input name="message" type="text" /><input type="submit" value="Submit" /></form>'
-                output += '</body></html>'
-
-                One().set_a(output)
+                One().set_a(test)
 
                 ##ADD PREDICTION TO GRAPH
-                test = output
-                self.wfile.write(output.encode())
+                self.wfile.write(test.encode())
                 return
         except:
             self.send_error(404, "{}".format(sys.exc_info()[1]))

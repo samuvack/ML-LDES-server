@@ -2,7 +2,7 @@ from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import FOAF, RDF
 
 
-def add_tripple_to_graph(graph_input) #, s_input, p_input, o_input
+def add_tripple_to_graph(graph_input, input_tripple) #, s_input, p_input, o_input
     g = graph_input
     g.bind("foaf", FOAF)
     bob = URIRef("http://example.org/people/Bob")
