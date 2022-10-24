@@ -76,4 +76,5 @@ Of course a better way is by looking at the temporal scale (and even better spat
 
   ## Online Machine Learning
   
-  
+  ![image](https://user-images.githubusercontent.com/15192194/197634690-a899a535-9b76-4715-afb9-0f6470f213f0.png)
+
