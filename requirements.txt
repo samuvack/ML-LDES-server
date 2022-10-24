@@ -12,6 +12,7 @@ rdflib
 dash
 pyorbital
 lru_cache
+river
 
 ###### Requirements with Version Specifiers ######
 
