@@ -73,3 +73,5 @@ Of course a better way is by looking at the temporal scale (and even better spat
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/timeseries3.png?raw=true"/>
 </p>
+
+  
