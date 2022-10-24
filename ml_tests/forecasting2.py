@@ -2,12 +2,14 @@ from river import datasets
 from river import metrics
 from river import time_series
 import datetime as dt
-
+import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-for j in range(2,143):
+file_names = []
+
+for j in range(143):
     dataset = datasets.AirlinePassengers()
 
     model = time_series.HoltWinters(
@@ -35,16 +37,18 @@ for j in range(2,143):
     q=0
     for t, (x, y) in enumerate(datasets.AirlinePassengers()):
         t_list2=[]
-        print('error:', (forecast[0] - prediction))
+        #print('error:', (forecast[0] - prediction))
         model = model.learn_one(y)
-        print(t,x,y)
+        #print(t,x,y)
         forecast = model.forecast(horizon=horizon)
-        print(forecast)
+        #print(forecast)
         prediction = y
         for i in range(len(forecast)):
             t_list2.append(t+i)
 
         if (q==j):
+            plt.figure()
+            sns.set()
             x_list=[]
             y_list=[]
             t_list=[]
@@ -55,10 +59,20 @@ for j in range(2,143):
             plt.scatter(t_list, y_list, c='r', alpha=0.6, s=2)
             plt.plot(t_list, y_list, linewidth=0.1)
             plt.plot(t_list2, forecast)
-            plt.show()
+            plt.suptitle("Online Machine Learning (forecasting)", fontsize=18)
+            plt.title("Iteration {y}".format(y=q), fontsize=10)
+            plt.xlabel('Time')
+            plt.ylabel('Value')
+            plt.savefig("./images/it_{y}.png".format(y=q))
+            print("./images/it_{y}.png".format(y=q))
+            file_names.append("./images/it_{y}.png".format(y=q))
         q = q+ 1
             
-
+import imageio
+images = []
+for filename in file_names:
+    images.append(imageio.imread(filename))
+imageio.mimsave('./images/movie.gif', images)
 
 """
 
