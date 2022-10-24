@@ -20,6 +20,14 @@ for j in range(143):
     multiplicative=True
     )
 
+    """
+    alpha: Smoothing parameter for the level.
+    beta  (defaults to None): Smoothing parameter for the trend.
+    gamma (defaults to None): Smoothing parameter for the seasonality.
+    seasonality (defaults to 0): The number of periods in a season. For instance, this should be 4 for quarterly data, and 12 for yearly data.
+    multiplicative (defaults to False): Whether or not to use a multiplicative formulation.
+    """
+
     metric = metrics.MAE()
 
     time_series.evaluate(
