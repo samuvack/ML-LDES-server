@@ -47,7 +47,7 @@ for j in range(143):
         t_list2=[]
         #print('error:', (forecast[0] - prediction))
         model = model.learn_one(y)
-        print(y)
+        #print(t,x,y)
         forecast = model.forecast(horizon=horizon)
         #print(forecast)
         prediction = y
@@ -71,9 +71,9 @@ for j in range(143):
             plt.title("Iteration {y}".format(y=q), fontsize=10)
             plt.xlabel('Time')
             plt.ylabel('Value')
-            plt.savefig("./images/it_{y}.png".format(y=q))
-            print("./images/it_{y}.png".format(y=q))
-            file_names.append("./images/it_{y}.png".format(y=q))
+            plt.savefig("./images_input/it_{y}.png".format(y=q))
+            print("./images_input/it_{y}.png".format(y=q))
+            file_names.append("./images_input/it_{y}.png".format(y=q))
         q = q+ 1
             
 import imageio

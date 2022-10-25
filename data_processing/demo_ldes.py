@@ -36,7 +36,6 @@ try:
         r = requests.post(url, data=rdf, headers=headers)
 
         print(r.text)
-        time.sleep(1)
 
 except KeyboardInterrupt:
     exit
