@@ -46,7 +46,7 @@ for j in range(143):
     for t, (x, y) in enumerate(datasets.AirlinePassengers()):
         t_list2=[]
         #print('error:', (forecast[0] - prediction))
-        model = model.learn_one(y)
+        model = model.learn_one(float(y))
         print(y)
         forecast = model.forecast(horizon=horizon)
         #print(forecast)

@@ -97,62 +97,66 @@ class webserverHandler(BaseHTTPRequestHandler):
                 salinity = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/salinity', g)
                 print('crawled salinity is :' + salinity)
 
-                #time = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/time', g)
-                #print('crawled time is :' + time)
+                time_it = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/time', g)
+                print('crawled time is :' + time_it)
 
                 temperature = data_processing.crawled.crawl_parameter('http://purl.org/dc/terms/temperature', g)
                 print('crawled temperature is :' + temperature)
                 temperature = float(temperature)
                 temperature_history.append(float(temperature))
 
-                model = time_series.HoltWinters(
-                    alpha=0.1,
-                    beta=0.1,
-                    gamma=0.1,
-                    seasonality=1,
-                    multiplicative=True
-                )
+                print (len(time_history))
+                if len(time_history)==1:
+                    global model
+                    model = time_series.HoltWinters(
+                        alpha=0.3,
+                        beta=0.1,
+                        gamma=0.6,
+                        seasonality=12,
+                        multiplicative=True
+                    )
+                    
+                    """
+                    alpha: Smoothing parameter for the level.
+                    beta  (defaults to None): Smoothing parameter for the trend.
+                    gamma (defaults to None): Smoothing parameter for the seasonality.
+                    seasonality (defaults to 0): The number of periods in a season. For instance, this should be 4 for quarterly data, and 12 for yearly data.
+                    multiplicative (defaults to False): Whether or not to use a multiplicative formulation.
+                    """
 
-                """
-                alpha: Smoothing parameter for the level.
-                beta  (defaults to None): Smoothing parameter for the trend.
-                gamma (defaults to None): Smoothing parameter for the seasonality.
-                seasonality (defaults to 0): The number of periods in a season. For instance, this should be 4 for quarterly data, and 12 for yearly data.
-                multiplicative (defaults to False): Whether or not to use a multiplicative formulation.
-                """
+                    #Evalute TODO
+                    dataset = datasets.AirlinePassengers()
+                    metric = metrics.MAE()
 
-                #Evalute TODO
-                dataset = datasets.AirlinePassengers()
-                metric = metrics.MAE()
-
-                time_series.evaluate(
-                    dataset,
-                    model,
-                    metric,
-                    horizon=12
-                )
+                    time_series.evaluate(
+                        dataset,
+                        model,
+                        metric,
+                        horizon=12
+                    )
 
                 #Training Online Forecosting model
                 horizon=12
                 model = model.learn_one(temperature)
-                print(model)
                 
                 #Online Forecasting
                 forecast_output = model.forecast(horizon=horizon)
                 print(forecast_output)
                 t_list2=[]
-                for i in range(len(forecast_output)):
+                for i in range(len(forecast_output)+1):
                     t_list2.append(time_history[-1] + i )
+                forecast_output.insert(0, temperature_history[-1])
+
                 plt.figure()
                 sns.set()
 
                 #Plotting
-                plt.scatter(time_history, temperature_history, c='r', alpha=0.6, s=4)
-                plt.plot(time_history, temperature_history, linewidth=0.3)
-                time_history.append(time_history[-1] + 1)
                 print(forecast_output)
                 plt.scatter(t_list2, forecast_output, c='b', alpha=0.6, s=4)
-                plt.plot(t_list2, forecast_output, c='b', linewidth=0.3)
+                plt.plot(t_list2, forecast_output, c='orange', linewidth=0.3)
+                plt.scatter(time_history, temperature_history, c='r', alpha=0.6, s=6)
+                plt.plot(time_history, temperature_history, linewidth=0.3)
+                time_history.append(time_history[-1] + 1)
                 plt.suptitle("Online Machine Learning (forecasting)", fontsize=18)
                 plt.title("Iteration {y}".format(y=time_history[-1]), fontsize=10)
                 plt.xlabel('Time')
