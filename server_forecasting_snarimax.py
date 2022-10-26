@@ -16,6 +16,13 @@ import datetime as dt
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import r2_score
+
+
+def mae(y_true, predictions):
+    y_true, predictions = np.array(y_true), np.array(predictions)
+    return np.mean(np.abs(y_true - predictions))
 
 @lru_cache(maxsize=2048)
 class One(object):
@@ -34,7 +41,7 @@ file_names = []
 y_list = []
 time_history=[0]
 temperature_history = []
-
+evaluation = []
 
 class webserverHandler(BaseHTTPRequestHandler):
     """docstring for webserverHandler"""
@@ -144,8 +151,21 @@ class webserverHandler(BaseHTTPRequestHandler):
                 plt.figure()
                 sns.set()
 
+                
+
                 #Plotting
                 print(forecast_output)
+                evaluation.append(forecast_output)
+                if (int(time_it) > 13):
+                    current_values =  []
+                for i in range(14, 1, -1):
+                        current_values.append(temperature_history[-i])
+                    print(str(r2_score(current_values, evaluation[int(time_it)-13])))
+                    print(mae(current_values, evaluation[int(time_it)-13]))
+
+
+
+
                 plt.scatter(t_list2, forecast_output, c='b', alpha=0.6, s=4)
                 plt.plot(t_list2, forecast_output, c='orange', linewidth=0.3, label='Forecasted data')
                 plt.scatter(time_history, temperature_history, c='r', alpha=0.6, s=6)
@@ -157,8 +177,11 @@ class webserverHandler(BaseHTTPRequestHandler):
                 plt.savefig("./output_ml/it_{y}.png".format(y=time_history[-1]))
                 print("./output_ml/it_{y}.png".format(y=time_history[-1]))
                 file_names.append("./output_ml/it_{y}.png".format(y=time_history[-1]))
+
                 test = 'gelukt'
                 One().set_a('gelukt')
+
+
                 ##ADD PREDICTION TO GRAPH
                 #self.wfile.write(test.encode())
 
