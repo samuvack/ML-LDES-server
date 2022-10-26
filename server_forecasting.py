@@ -124,16 +124,20 @@ class webserverHandler(BaseHTTPRequestHandler):
                     multiplicative (defaults to False): Whether or not to use a multiplicative formulation.
                     """
 
+                    
                     #Evalute TODO
                     dataset = datasets.AirlinePassengers()
                     metric = metrics.MAE()
-
-                    time_series.evaluate(
-                        dataset,
-                        model,
-                        metric,
-                        horizon=12
+                    time_series.evaluate.progressive_val_score(
+                            #dataset,
+                            model,
+                            metric,
+                            horizon=12
                     )
+
+
+                
+                    
 
                 #Training Online Forecosting model
                 horizon=12
