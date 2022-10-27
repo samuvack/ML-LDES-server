@@ -41,9 +41,7 @@ def update_metrics(n):
 @app.callback(Output('live-update-graph', 'figure'),
               Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
-    
-    print('clean')
-    print(n)
+
     if n ==0:
         global data
         data = {'time': [],
@@ -82,15 +80,15 @@ def update_graph_live(n):
     fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
 
     fig.append_trace({
-        'x': data['time'],
-        'y': data['pH'],
+        'x': data['time'][-100:],
+        'y': data['pH'][-100:],
         'name': 'pH',
         'mode': 'lines+markers',
         'type': 'scatter'
     }, 1, 1)
     fig.append_trace({
-        'x': data['time'],
-        'y': data['Temperature'],
+        'x': data['time'][-100:],
+        'y': data['Temperature'][-100:],
         'name': 'Temperature',
         'mode': 'lines+markers',
         'type': 'scatter'
