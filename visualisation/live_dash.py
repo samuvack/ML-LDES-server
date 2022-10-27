@@ -1,20 +1,18 @@
 import datetime
-
+from random import random
 import dash
 from dash import dcc, html
 import plotly
 from dash.dependencies import Input, Output
 
-# pip install pyorbital
-from pyorbital.orbital import Orbital
-satellite = Orbital('TERRA')
+
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = html.Div(
     html.Div([
-        html.H4('TERRA Satellite Live Feed'),
+        html.H4('IOW LDES (Linked Data Event Stream) Live Feed'),
         html.Div(id='live-update-text'),
         dcc.Graph(id='live-update-graph'),
         dcc.Interval(
@@ -29,7 +27,9 @@ app.layout = html.Div(
 @app.callback(Output('live-update-text', 'children'),
               Input('interval-component', 'n_intervals'))
 def update_metrics(n):
-    lon, lat, alt = satellite.get_lonlatalt(datetime.datetime.now())
+    lon =  random()*4
+    lat = random()*4
+    alt = random()*4
     style = {'padding': '5px', 'fontSize': '16px'}
     return [
         html.Span('Longitude: {0:.2f}'.format(lon), style=style),
@@ -42,7 +42,7 @@ def update_metrics(n):
 @app.callback(Output('live-update-graph', 'figure'),
               Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
-    satellite = Orbital('TERRA')
+    
     data = {
         'time': [],
         'Latitude': [],
@@ -53,16 +53,16 @@ def update_graph_live(n):
     # Collect some data
     for i in range(180):
         time = datetime.datetime.now() - datetime.timedelta(seconds=i*20)
-        lon, lat, alt = satellite.get_lonlatalt(
-            time
-        )
+        lon= random()*4
+        lat= random()*4
+        alt =  random()*4
         data['Longitude'].append(lon)
         data['Latitude'].append(lat)
         data['Altitude'].append(alt)
         data['time'].append(time)
 
     # Create the graph with subplots
-    fig = plotly.tools.make_subplots(rows=2, cols=1, vertical_spacing=0.2)
+    fig = plotly.tools.make_subplots(rows=3, cols=1, vertical_spacing=0.2)
     fig['layout']['margin'] = {
         'l': 30, 'r': 10, 'b': 30, 't': 10
     }
@@ -76,15 +76,23 @@ def update_graph_live(n):
         'type': 'scatter'
     }, 1, 1)
     fig.append_trace({
+        'x': data['time'],
+        'y': data['Longitude'],
+        'name': 'Value',
+        'mode': 'lines+markers',
+        'type': 'scatter'
+    }, 2, 1)
+    fig.append_trace({
         'x': data['Longitude'],
         'y': data['Latitude'],
         'text': data['time'],
         'name': 'Longitude vs Latitude',
-        'mode': 'lines+markers',
+        'mode': 'markers',
         'type': 'scatter'
-    }, 2, 1)
+    }, 3, 1)
 
     return fig
+
 
 
 if __name__ == '__main__':
