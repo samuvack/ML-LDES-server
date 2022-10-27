@@ -83,7 +83,7 @@ Of course a better way is by looking at the temporal scale (and even better spat
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/ml_tests/images/movie.gif?raw=true"/>
 </p>
 
-When running `python server_forecasting_snarimax` the ML server will listen on port 8000 for LDES Post requests, filtering out the relevant values, and sending it into the SNARIMAX forecasting model. Hereafter, the model will automatically forecast a serie of estimated values.
+When running `python server_forecasting_snarimax.py` the ML server will listen on port 8000 for LDES Post requests, filtering out the relevant values, and sending it into the SNARIMAX forecasting model. Hereafter, the model will automatically forecast a serie of estimated values.
 
 Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES POST request will be send to http://localhost:8000/input
 
