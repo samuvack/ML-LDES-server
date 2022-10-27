@@ -27,39 +27,52 @@ app.layout = html.Div(
 @app.callback(Output('live-update-text', 'children'),
               Input('interval-component', 'n_intervals'))
 def update_metrics(n):
-    lon =  random()*4
-    lat = random()*4
-    alt = random()*4
+    temp= 8 + random()*4
+    con= 28 + random()*4
+    pH =  random()*14
     style = {'padding': '5px', 'fontSize': '16px'}
     return [
-        html.Span('Longitude: {0:.2f}'.format(lon), style=style),
-        html.Span('Latitude: {0:.2f}'.format(lat), style=style),
-        html.Span('Altitude: {0:0.2f}'.format(alt), style=style)
+        html.Span('Temperature: {0:.2f}'.format(temp), style=style),
+        html.Span('Conductivity: {0:.2f}'.format(con), style=style),
+        html.Span('pH: {0:0.2f}'.format(pH), style=style)
     ]
-
 
 # Multiple components can update everytime interval gets fired.
 @app.callback(Output('live-update-graph', 'figure'),
               Input('interval-component', 'n_intervals'))
 def update_graph_live(n):
     
-    data = {
-        'time': [],
-        'Latitude': [],
-        'Longitude': [],
-        'Altitude': []
-    }
+    print('clean')
+    print(n)
+    if n ==0:
+        global data
+        data = {'time': [],
+            'Conductivity': [],
+            'Temperature': [],
+            'pH': []}
+        
 
-    # Collect some data
-    for i in range(180):
-        time = datetime.datetime.now() - datetime.timedelta(seconds=i*20)
-        lon= random()*4
-        lat= random()*4
-        alt =  random()*4
-        data['Longitude'].append(lon)
-        data['Latitude'].append(lat)
-        data['Altitude'].append(alt)
-        data['time'].append(time)
+        # Collect some data
+        for i in range(180, 0, -1):
+            time = datetime.datetime.now() - datetime.timedelta(seconds=i*1)
+            temp= 8 + random()*4
+            con= 28 + random()*4
+            pH =  random()*14
+            print(time)
+            data['Temperature'].append(temp)
+            data['Conductivity'].append(con)
+            data['pH'].append(pH)
+            data['time'].append(time)
+
+
+    time = datetime.datetime.now()
+    temp= 8 + random()*4
+    con= 28 + random()*4
+    pH =  random()*14
+    data['Temperature'].append(temp)
+    data['Conductivity'].append(con)
+    data['pH'].append(pH)
+    data['time'].append(time)
 
     # Create the graph with subplots
     fig = plotly.tools.make_subplots(rows=3, cols=1, vertical_spacing=0.2)
@@ -70,23 +83,23 @@ def update_graph_live(n):
 
     fig.append_trace({
         'x': data['time'],
-        'y': data['Altitude'],
-        'name': 'Altitude',
+        'y': data['pH'],
+        'name': 'pH',
         'mode': 'lines+markers',
         'type': 'scatter'
     }, 1, 1)
     fig.append_trace({
         'x': data['time'],
-        'y': data['Longitude'],
-        'name': 'Value',
+        'y': data['Temperature'],
+        'name': 'Temperature',
         'mode': 'lines+markers',
         'type': 'scatter'
     }, 2, 1)
     fig.append_trace({
-        'x': data['Longitude'],
-        'y': data['Latitude'],
+        'x': data['Conductivity'],
+        'y': data['Temperature'],
         'text': data['time'],
-        'name': 'Longitude vs Latitude',
+        'name': 'Temperature vs Conductivity',
         'mode': 'markers',
         'type': 'scatter'
     }, 3, 1)
