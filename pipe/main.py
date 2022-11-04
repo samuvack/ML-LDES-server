@@ -115,8 +115,6 @@ class Stage1:
         
 
 if __name__ == '__main__':
-
-
    
     s1= Stage1()
     s2= Stage2()
