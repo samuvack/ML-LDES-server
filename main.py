@@ -53,6 +53,7 @@ class Stage1:
             q=0
             for t, (x, y) in enumerate(datasets.AirlinePassengers()):
                 t_list2=[]
+                print('ik ben begonnen', t)
                 #print('error:', (forecast[0] - prediction))
                 model = model.learn_one(float(y))
                 print(y)               
@@ -62,12 +63,14 @@ class Stage1:
                 visualise_data.insert(0, y)
                 queueS1.put(visualise_data) #Send it into queue
                 Stage2.update_graph_live(t, queueS1)
-                time.sleep(10)
+                
 
                 #print(forecast)
                 prediction = y
                 for i in range(len(forecast)):
                     t_list2.append(t+i)
+            queueS1.put(None)
+            queueS1.join()
 
             """
                 if (q==j):
