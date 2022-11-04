@@ -49,7 +49,7 @@ for j in range(143):
         model = model.learn_one(float(y))
         print(y)
         forecast = model.forecast(horizon=horizon)
-        #print(forecast)
+        print(forecast)
         prediction = y
         for i in range(len(forecast)):
             t_list2.append(t+i)
