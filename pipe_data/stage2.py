@@ -9,9 +9,9 @@ from dash.dependencies import Input, Output
 
 
 
-def start_app(self):
+def start_app():
     print('app is started')
-    app.run_server(debug=True)
+    Stage2.app.run_server(debug=True)
 
 class Stage2:
 

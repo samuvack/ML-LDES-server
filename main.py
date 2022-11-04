@@ -7,9 +7,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from multiprocessing import Process, Queue
 
-
 from multiprocessing import Process, Queue
-from stage2 import Stage2
+from pipe_data.stage2 import Stage2
+from pipe_data.stage2 import start_app
 import time
 import random
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
    
     s1= Stage1()
     s2= Stage2()
-    stage2.start_app()
+    start_app()
 
     # S1 to S2 communication
     queueS1 = Queue()  # s1.stage1() writes to queueS1
