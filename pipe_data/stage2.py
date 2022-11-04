@@ -6,7 +6,7 @@ import dash
 from dash import dcc, html
 import plotly
 from dash.dependencies import Input, Output
-
+from icecream import ic
 
 
 def start_app():
@@ -14,15 +14,15 @@ def start_app():
     Stage2.app.run_server(debug=True)
 
 class Stage2:
-
-
-
-    def stage2(self, queueS1):
+    
+    """
+    def get_data(self):
         print("stage2")
         while True:
             msg = queueS1.get()    # wait till there is a msg from s1
             print("- - - Data vanuit S1 komt binnen:", msg)
-
+            return msg
+    """  
 
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -58,9 +58,13 @@ class Stage2:
     # Multiple components can update everytime interval gets fired.
     @app.callback(Output('live-update-graph', 'figure'),
                 Input('interval-component', 'n_intervals'))
-    def update_graph_live(n):
+    def update_graph_live(n, queueS1):
+        if not ('msg' in globals()):
+                global msg
+        msg = queueS1.get()
+        print('gelukt', msg)
 
-        if n ==0:
+        if not ('data' in globals()):
             global data
             global forecasting
             data = {'time': [],
@@ -75,7 +79,7 @@ class Stage2:
                 temp= 8 + random()*4
                 con= 28 + random()*4
                 pH =  random()*14
-                print(time)
+                #print(time)
                 data['Temperature'].append(temp)
                 data['Conductivity'].append(con)
                 data['pH'].append(pH)
@@ -85,90 +89,89 @@ class Stage2:
             'Conductivity': [],
             'Temperature': [],
             'pH': []}
-        
-
-
-
-        time = datetime.datetime.now()
-        temp= 8 + random()*4
-        con= 28 + random()*4
-        pH =  random()*14
-        data['Temperature'].append(temp)
-        data['Conductivity'].append(con)
-        data['pH'].append(pH)
-        data['time'].append(time)
-
-        for i in range(1, 12, 1):
-            time = datetime.datetime.now() + datetime.timedelta(seconds=i*1)
-            temp= 8 + random()*4
+        if not msg:
+            print('no data')
+        else:
+            print(msg)
+            time = datetime.datetime.now()
+            temp= msg[0]
             con= 28 + random()*4
             pH =  random()*14
-            print(time)
-            forecasting['Temperature'].append(temp)
-            forecasting['Conductivity'].append(con)
-            forecasting['pH'].append(pH)
-            forecasting['time'].append(time)
+            data['Temperature'].append(temp)
+            data['Conductivity'].append(con)
+            data['pH'].append(pH)
+            data['time'].append(time)
 
-            forecasting['Temperature'].insert(0,data['Temperature'][-1])
-            forecasting['Conductivity'].insert(0,data['Conductivity'][-1])
-            forecasting['pH'].insert(0,data['pH'][-1])
-            forecasting['time'].insert(0,data['time'][-1])
+            for i in range(len(msg)):
+                time = datetime.datetime.now() + datetime.timedelta(seconds=i*1)
+                temp= msg[i]
+                con= 28 + random()*4
+                pH =  random()*14
+                forecasting['Temperature'].append(temp)
+                forecasting['Conductivity'].append(con)
+                forecasting['pH'].append(pH)
+                forecasting['time'].append(time)
 
-        # Create the graph with subplots
-        fig = plotly.tools.make_subplots(rows=3, cols=1, vertical_spacing=0.2)
-        fig['layout']['margin'] = {
-            'l': 30, 'r': 10, 'b': 30, 't': 10
-        }
-        fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
+                forecasting['Temperature'].insert(0,data['Temperature'][-1])
+                forecasting['Conductivity'].insert(0,data['Conductivity'][-1])
+                forecasting['pH'].insert(0,data['pH'][-1])
+                forecasting['time'].insert(0,data['time'][-1])
 
-        fig.append_trace({
-            'x': forecasting['time'],
-            'y': forecasting['pH'],
-            'name': 'pH forecasting',
-            'mode': 'lines+markers',
-            'type': 'scatter',
-            'line_color':'lightgrey'
-        }, 1, 1)
-        fig.append_trace({
-            'x': data['time'][-100:],
-            'y': data['pH'][-100:],
-            'name': 'pH',
-            'mode': 'lines+markers',
-            'type': 'scatter',
-            'line_color':'blue'
-        }, 1, 1)
+            # Create the graph with subplots
+            fig = plotly.tools.make_subplots(rows=3, cols=1, vertical_spacing=0.2)
+            fig['layout']['margin'] = {
+                'l': 30, 'r': 10, 'b': 30, 't': 10
+            }
+            fig['layout']['legend'] = {'x': 0, 'y': 1, 'xanchor': 'left'}
 
-        fig.append_trace({
-            'x': forecasting['time'],
-            'y': forecasting['Temperature'],
-            'name': 'Temperature forecasting',
-            'mode': 'lines+markers',
-            'type': 'scatter',
-            'line_color':'lightgrey'
-        }, 2, 1)
+            fig.append_trace({
+                'x': forecasting['time'],
+                'y': forecasting['pH'],
+                'name': 'pH forecasting',
+                'mode': 'lines+markers',
+                'type': 'scatter',
+                'line_color':'lightgrey'
+            }, 1, 1)
+            fig.append_trace({
+                'x': data['time'][-100:],
+                'y': data['pH'][-100:],
+                'name': 'pH',
+                'mode': 'lines+markers',
+                'type': 'scatter',
+                'line_color':'blue'
+            }, 1, 1)
 
-        fig.append_trace({
-            'x': data['time'][-100:],
-            'y': data['Temperature'][-100:],
-            'name': 'Temperature',
-            'mode': 'lines+markers',
-            'type': 'scatter',
-            'line_color':'green'
-        }, 2, 1)
-        fig.append_trace({
-            'x': data['Conductivity'],
-            'y': data['Temperature'],
-            'text': data['time'],
-            'name': 'Temperature vs Conductivity',
-            'mode': 'markers',
-            'type': 'scatter'
-        }, 3, 1)
+            fig.append_trace({
+                'x': forecasting['time'],
+                'y': forecasting['Temperature'],
+                'name': 'Temperature forecasting',
+                'mode': 'lines+markers',
+                'type': 'scatter',
+                'line_color':'lightgrey'
+            }, 2, 1)
 
-        return fig
+            fig.append_trace({
+                'x': data['time'][-100:],
+                'y': data['Temperature'][-100:],
+                'name': 'Temperature',
+                'mode': 'lines+markers',
+                'type': 'scatter',
+                'line_color':'green'
+            }, 2, 1)
+            fig.append_trace({
+                'x': data['Conductivity'],
+                'y': data['Temperature'],
+                'text': data['time'],
+                'name': 'Temperature vs Conductivity',
+                'mode': 'markers',
+                'type': 'scatter'
+            }, 3, 1)
 
 
-"""
+            return fig
+
+
+
 if __name__ == '__main__':
     print('app is started')
     app.run_server(debug=True)
-"""

@@ -6,8 +6,6 @@ import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 from multiprocessing import Process, Queue
-
-from multiprocessing import Process, Queue
 from pipe_data.stage2 import Stage2
 from pipe_data.stage2 import start_app
 import time
@@ -63,14 +61,15 @@ class Stage1:
                 visualise_data = forecast
                 visualise_data.insert(0, y)
                 queueS1.put(visualise_data) #Send it into queue
-
-
+                Stage2.update_graph_live(t, queueS1)
+                time.sleep(10)
 
                 #print(forecast)
                 prediction = y
                 for i in range(len(forecast)):
                     t_list2.append(t+i)
 
+            """
                 if (q==j):
                     plt.figure()
                     sns.set()
@@ -88,11 +87,12 @@ class Stage1:
                     plt.title("Iteration {y}".format(y=q), fontsize=10)
                     plt.xlabel('Time')
                     plt.ylabel('Value')
-                    plt.savefig("../images/it_{y}.png".format(y=q))
+                    plt.savefig("./images/it_{y}.png".format(y=q))
                     print("../images/it_{y}.png".format(y=q))
                     file_names.append("../images/it_{y}.png".format(y=q))
                 q = q+ 1
                 time.sleep(3)
+            """
                     
         import imageio
         images = []
@@ -118,14 +118,13 @@ if __name__ == '__main__':
    
     s1= Stage1()
     s2= Stage2()
-    start_app()
+    
 
     # S1 to S2 communication
     queueS1 = Queue()  # s1.stage1() writes to queueS1
 
-
     # start s2 as another process
-    s2 = Process(target=s2.stage2, args=(queueS1,))
+    s2 = Process(target=s2.update_graph_live, args=(queueS1,))
     s2.daemon = True
     s2.start()     # Launch the stage2 process
 
