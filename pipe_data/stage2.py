@@ -178,4 +178,4 @@ class Stage2:
 
 if __name__ == '__main__':
     print('app is started')
-    #app.run_server(debug=True)
+    app.run_server(debug=True)
