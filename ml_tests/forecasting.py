@@ -5,7 +5,7 @@ import datetime as dt
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-
+from sklearn.metrics import r2_score
 
 file_names = []
 
@@ -41,6 +41,8 @@ for j in range(143):
 
     prediction = 0
     forecast = [1]
+    forecast_list = []
+    history_list = []
     
     q=0
     for t, (x, y) in enumerate(datasets.AirlinePassengers()):
@@ -50,6 +52,19 @@ for j in range(143):
         print(y)
         forecast = model.forecast(horizon=horizon)
         print(forecast)
+        t_list2=[]
+        forecast_list.append(forecast)
+        history_list.append(y)
+
+        if(len(history_list)>13):
+            for i in range(12, 1, -1):
+                    #print('R² score:', str(r2_score(history_list, forecast_list[-i:])))
+                    print('overview :', forecast_list[-1])
+                    print('overview :', forecast_list)
+                    break
+                    #print('MAE score:', mae(current_values, forecast_list[-i:]))
+
+
         prediction = y
         for i in range(len(forecast)):
             t_list2.append(t+i)
