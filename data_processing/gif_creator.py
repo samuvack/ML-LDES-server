@@ -21,4 +21,4 @@ for x in sorted_nicely(f):
 images = []
 for filename in test:
     images.append(imageio.imread('../output_ml/' + filename))
-imageio.mimsave('../output_ml/gif_forecasting_SNARIMAX.gif', images)
+imageio.mimsave('../output_ml/movie_iow.gif', images)

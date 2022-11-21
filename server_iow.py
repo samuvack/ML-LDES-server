@@ -11,8 +11,11 @@ from rdflib import Graph, plugin
 from functools import lru_cache
 from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import FOAF, RDF
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 list = []
+it = []
 
 @lru_cache(maxsize=2048)
 class One(object):
@@ -69,12 +72,12 @@ class webserverHandler(BaseHTTPRequestHandler):
                 post_body = self.rfile.read(content_len)
                 #pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
                 #pdict['CONTENT-LENGTH'] = content_len
-                print('POST request input:')
+                #print('POST request input:')
                 #print(post_body)
 
                 ##CONVERSION TO JSON-LD
-                print('conversion to json-ld:')
-                print(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
+                #print('conversion to json-ld:')
+                #print(data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body))
                 input = data_processing.ttl2jsonld.convert_rdf_2_jsonld(post_body)
                 
                 
@@ -104,17 +107,36 @@ class webserverHandler(BaseHTTPRequestHandler):
 
                 qres = g.query(knows_query)
                 for row in qres:
-                    print(row[0])
-                    print(row[1])
-                    print(row[2])
+                    #print(row[0])
+                    #print(row[1])
+                    #print(row[2])
                     if row[0].strip() == 'temperatuur':
-                        print('juij')
-                        temp = row[3].strip
+                        print(row[2])
+                        temp = float(row[3].strip())
                         sensor_name_t = row[2].strip()
                         time_temp = row[1].strip()
-                if row[2].strip() == 'urn:ngsi-v2:cot-imec-be:device:imec-wqsensor-2047475712':
-                    list.append(temp)
-
+                        if row[2].strip() == 'urn:ngsi-v2:cot-imec-be:Device:dwg-iow-8JgF3vxoYKoXzwWGUiX3Yc':
+                            list.append(temp)
+                            it.append(len(list))
+                            plt.figure()
+                            sns.set()
+                            print('JA--------------------------------------------------------------------------------------------------------------')
+                            print(it[-1])
+                            #Plotting
+                            plt.scatter(it, list, c='b', alpha=0.6, s=4)
+                            plt.plot(it, list, c='orange', linewidth=0.3)
+                            plt.suptitle("Online Machine Learning (forecasting)", fontsize=18)
+                            plt.title("Iteration {y}".format(y=it[-1]),fontsize=10)
+                            plt.xlabel('Time')
+                            plt.ylabel('Value')
+                            plt.savefig("./iow_output/it_{y}.png".format(y=it[-1]))
+                            print("./iow_output/it_{y}.png".format(y=it[-1]))
+                            file_names.append("./iow_output/it_{y}.png".format(y=it[-1]))
+                            test = 'gelukt'
+                            print('gelukt')
+                One().set_a('gelukt')
+                ##ADD PREDICTION TO GRAPH
+                #self.wfile.write(test.encode())
 
                 if len(list) % 2 ==0:
                     import pickle
