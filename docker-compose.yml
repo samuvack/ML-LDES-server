@@ -39,3 +39,22 @@ services:
     container_name: jupyter-notebook
     ports:
       - 7777:8888
+
+  nifi:
+    image: ghcr.io/informatievlaanderen/ldes-workbench-nifi:latest
+    container_name: ldes-nifi
+    restart: unless-stopped
+    ports:
+      # HTTPS
+      - 8443:8443/tcp
+    volumes:
+      - ./nifi-extensions:/opt/nifi/nifi-current/extensions
+    environment:
+      - NIFI_UI_PORT=8443
+      - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      - SINGLE_USER_CREDENTIALS_PASSWORD=admin123456789
+      - NIFI_WORKFLOW_LISTEN_PORT=9005
+      - NIFI_JVM_HEAP_INIT=8g
+      - NIFI_JVM_HEAP_MAX=8g
+
+

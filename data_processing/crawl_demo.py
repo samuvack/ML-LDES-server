@@ -49,7 +49,7 @@ def crawl_parameter(parameter_string, graph_input):
            return str(o)
 
 
-knows_query = """
+knows_query2 = """
 PREFIX sosa: <https://www.w3.org/TR/vocab-ssn-ext/#sosa:>
 PREFIX samplecollection: <http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeatureCollection.>
 PREFIX measure: <http://def.isotc211.org/iso19156/2011/Measurement#>
@@ -59,14 +59,14 @@ PREFIX waterkwaliteitparameter: <https://data.vmm.be/concept/waterkwaliteitparam
 PREFIX sensor: <https://data.vmm.be/concept/sensor/>
 PREFIX schema: <https://schema.org/>
 PREFIX prov: <http://www.w3.org/ns/prov#>
-SELECT ?collection ?generated_at ?temperature ?conductivity ?batterylevel
+SELECT ?collection ?generated_at ?temperature ?conductivity ?batterylevel ?sensor_name
 WHERE {
   ?collection a sosa:ObservationCollection .
-  ?collection prov:generatedAtTime ?generated_at .
+  ?collection prov:generatedAtTime ?generated_at . 
   OPTIONAL {
     ?collection samplecollection:member ?member1 .
     ?member1 observation:observedProperty waterkwaliteitparameter:temperatuur .
-    ?member1 observation:result/unitsofmeasure:value/schema:value ?temperature .
+    ?member1 observation:result/unitsofmeasure:value/schema:value ?temperature
   }
   OPTIONAL {
     ?collection samplecollection:member ?member2 .
@@ -78,15 +78,45 @@ WHERE {
     ?member3 observation:observedProperty sensor:batterijniveau .
     ?member3 observation:result/unitsofmeasure:value/schema:value ?batterylevel
   }
+  OPTIONAL {
+    ?collection samplecollection:member ?member1 .
+    ?member1 observation:observedProperty waterkwaliteitparameter:temperatuur .
+    ?member1 ?s ?sensor_name
+
+
+  }
 }
     """
 
+
+knows_query = """
+
+PREFIX sosa: <http://www.w3.org/ns/sosa/>
+PREFIX measure: <http://def.isotc211.org/iso19156/2011/Measurement#>
+PREFIX unitsofmeasure: <http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#Measure.>
+PREFIX observation: <http://def.isotc211.org/iso19156/2011/Observation#OM_Observation.>
+PREFIX schema: <https://schema.org/>
+SELECT ?propertyname ?time ?sensor ?value
+WHERE {
+    ?reading a measure:OM_Measurement .
+    ?reading observation:observedProperty ?property .
+    ?reading observation:phenomenonTime ?time .
+    BIND (REPLACE(STR(?property), "^.*/([^/]*)$", "$1") as ?propertyname)
+    ?reading sosa:madeBySensor ?sensor .
+    ?reading observation:result/unitsofmeasure:value/schema:value ?value
+}
+"""
+list = []
+
 qres = g.query(knows_query)
 for row in qres:
-    for i in range(len(row)):
-        print(f"{row[i]}")
-
-
-
-test = crawl_parameter('http://def.isotc211.org/iso19156/2011/SamplingFeature#SF_SamplingFeatureCollection.member', g)
-print(test)
+    print(row[0])
+    print(row[1])
+    print(row[2])
+    if row[0].strip() == 'temperatuur':
+        print('juij')
+        temp = row[3].strip
+        sensor_name_t = row[2].strip()
+        time_temp = row[1].strip()
+if row[2].strip() == 'urn:ngsi-v2:cot-imec-be:device:imec-wqsensor-2047475712':
+      list.append(temp)
