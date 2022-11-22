@@ -69,15 +69,41 @@ period = 1
 global model
 model = (
 time_series.SNARIMAX(
-         p=4,
+         p=1,
          d=0,
          q=1,
          m=1,
          sp=0,
          sq=0,
-         sd=0
+         sd=0,
+         regressor=(
+            preprocessing.StandardScaler() |
+            linear_model.LinearRegression(
+                optimizer=optim.SGD(0.05),
+                intercept_lr=0.5
+            )
      )
  )
+)
+
+model2 = (
+time_series.SNARIMAX(
+         p=1,
+         d=0,
+         q=1,
+         m=1,
+         sp=0,
+         sq=0,
+         sd=0,
+         regressor=(
+            preprocessing.StandardScaler() |
+            linear_model.LinearRegression(
+                optimizer=optim.SGD(0.01),
+                intercept_lr=0.1
+            )
+     )
+ )
+)
 
 fig, axes = plt.subplots(nrows=2, ncols=1,sharex=True)
 
@@ -94,6 +120,7 @@ for i in range(len(dat)):
     print(i)
     print(dat.loc[i, "temperature"])
     model = model.learn_one(dat.loc[i, "temperature"])
+    model2 = model2.learn_one(dat.loc[i, "temperature"])
     
     #Online Forecasting
     forecast = model.forecast(horizon=12)
@@ -105,7 +132,7 @@ for i in range(len(dat)):
     for j in range(12):
         t_list2.append(i+j+1)
 
-    if i > 12:
+    if i > 0:
         for t in range(24):
             temperature_filtered.append(temperature_list[i-12+t])
             time_filtered.append(time_list[i-12+t])
@@ -121,7 +148,7 @@ for i in range(len(dat)):
         plt.plot(t_list2, forecast, c='red', linewidth=0.3, label='Forecasted data')
         plt.suptitle("Online Machine Learning (forecasting)", fontsize=12)
 
-        plt.ylim(10, 17)
+        plt.ylim(0, 22)
 
         plt.title("Iteration {y}".format(y=i), fontsize=8)
         plt.legend(loc='upper right')
