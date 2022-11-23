@@ -36,8 +36,13 @@ except:
 
 cur = conn.cursor()
 
-
 file_names = []
+validation_list = []
+validation_time=[]
+
+def mae(y_true, predictions):
+    y_true, predictions = np.array(y_true), np.array(predictions)
+    return np.mean(np.abs(y_true - predictions))
 
 
 
@@ -69,7 +74,7 @@ period = 1
 global model
 model = (
 time_series.SNARIMAX(
-         p=1,
+         p=2,
          d=0,
          q=1,
          m=1,
@@ -79,8 +84,8 @@ time_series.SNARIMAX(
          regressor=(
             preprocessing.StandardScaler() |
             linear_model.LinearRegression(
-                optimizer=optim.SGD(0.03),
-                intercept_lr=0.1
+                optimizer=optim.SGD(0.1),
+                intercept_lr=0.5
             )
      )
  )
@@ -88,7 +93,7 @@ time_series.SNARIMAX(
 
 model2 = (
 time_series.SNARIMAX(
-         p=1,
+         p=3,
          d=0,
          q=1,
          m=1,
@@ -98,9 +103,8 @@ time_series.SNARIMAX(
          regressor=(
             preprocessing.StandardScaler() |
             linear_model.LinearRegression(
-                intercept_init=110,
-                optimizer=optim.SGD(0.01),
-                intercept_lr=0.1
+                optimizer=optim.SGD(0.1),
+                intercept_lr=0.5
             )
      )
  )
@@ -109,17 +113,17 @@ time_series.SNARIMAX(
 model3 = (
 time_series.SNARIMAX(
          p=4,
-         d=4,
-         q=12,
-         m=7,
-         sp=2,
-         sq=3,
-         sd=2,
+         d=0,
+         q=1,
+         m=1,
+         sp=0,
+         sq=0,
+         sd=0,
          regressor=(
             preprocessing.StandardScaler() |
             linear_model.LinearRegression(
-                optimizer=optim.SGD(0.01),
-                intercept_lr=0.1
+                optimizer=optim.SGD(0.1),
+                intercept_lr=0.5
             )
      )
  )
@@ -127,21 +131,21 @@ time_series.SNARIMAX(
 
 model4 = (
 time_series.SNARIMAX(
-p=1,
-d=0,
-q=0,
-m=12,
-sp=3,
-sq=6,
-regressor=(
-    preprocessing.StandardScaler() |
-    linear_model.LinearRegression(
-        intercept_init=110,
-        optimizer=optim.SGD(0.01),
-        intercept_lr=0.3
-    )
-)
-)
+         p=1,
+         d=0,
+         q=1,
+         m=1,
+         sp=0,
+         sq=0,
+         sd=0,
+         regressor=(
+            preprocessing.StandardScaler() |
+            linear_model.LinearRegression(
+                optimizer=optim.SGD(0.1),
+                intercept_lr=1
+            )
+     )
+ )
 )
 
 fig, axes = plt.subplots(nrows=2, ncols=1,sharex=True)
@@ -167,40 +171,69 @@ for i in range(len(dat)):
     forecast = model.forecast(horizon=12)
     forecast2 = model2.forecast(horizon=12)
     forecast3 = model3.forecast(horizon=12)
-    forecast4 = model.forecast(horizon=12)
+    forecast4 = model4.forecast(horizon=12)
     print(forecast)
 
     t_list2=[]
     temperature_filtered = []
+    temperature_validation = []
     time_filtered=[]
     for j in range(12):
         t_list2.append(i+j+1)
+        temperature_validation.append(temperature_list[i+j+1])
 
-    if i > 0:
-        for t in range(24):
-            temperature_filtered.append(temperature_list[i-12+t])
-            time_filtered.append(time_list[i-12+t])
+    for t in range(24):
+        temperature_filtered.append(temperature_list[i-12+t])
+        time_filtered.append(time_list[i-12+t])
+
+    if (i >= 13):
+        validation1 = mae(temperature_validation, forecast)
+        validation2 = mae(temperature_validation, forecast2)
+        validation3 = mae(temperature_validation, forecast3)
+        validation4 = mae(temperature_validation, forecast4)
+
+        print(validation1)
+        print(validation2)
+        print(validation3)
+        print(validation4)
+        validation_list.append(validation1)
+        validation_time.append(i)
+
+
         print(temperature_filtered)
         print(time_filtered)
         #Plotting
 
         plt.figure()
+        fig, axs = plt.subplots(2)
         sns.set()
-        plt.scatter(time_filtered, temperature_filtered, c='b', alpha=0.6, s=0.1)
-        plt.plot(time_filtered, temperature_filtered, c='orange', linewidth=0.3, label='Historic data')   
-        plt.scatter(t_list2, forecast, c='b', alpha=0.6, s=4)
-        plt.plot(t_list2, forecast, c='red', linewidth=0.3, label='Forecasted data')
-        plt.suptitle("Online Machine Learning (forecasting)", fontsize=12)
+        axs[0].scatter(time_filtered, temperature_filtered, c='b', alpha=0.6, s=0.1)
+        axs[0].plot(time_filtered, temperature_filtered, c='orange', linewidth=0.3, label='Historic data')   
+        #axs[0].scatter(t_list2, forecast, c='b', alpha=0.6, s=4)
+        #axs[0].plot(t_list2, forecast, c='red', linewidth=0.3, label='Forecasted data')
+
+        #axs[0].plot(t_list2, forecast2, c='orange', linewidth=0.3, label='Forecasted data')
+
+        axs[0].scatter(t_list2, forecast3, c='b', alpha=0.6, s=4)
+        axs[0].plot(t_list2, forecast3, c='red', linewidth=0.3, label='Forecasted data')
+
+
+        axs[0].plot(t_list2, forecast4, c='black', linewidth=0.3, label='Forecasted data')
+        
+        #axs[0].suptitle("Online Machine Learning (forecasting)", fontsize=12)
 
         ymin, ymax = plt.ylim()
-        plt.ylim(ymin-100, ymax+100)
+        #axs[0].ylim(600, 1000)
 
-        plt.title("Iteration {y} - SNARIMAX model".format(y=i), fontsize=8)
-        plt.legend(loc='lower right')
-        plt.savefig("./output_ml/it_{y}.png".format(y=i))
-        print("./output_ml/it_{y}.png".format(y=i))
-        file_names.append("./output_ml/it_{y}.png".format(y=i))
-        plt.close()
+        #axs[0].title("Iteration {y} - SNARIMAX model".format(y=i), fontsize=8)
+        axs[0].legend(loc='lower right')
+        #axs[0].savefig("./output_ml/it_{y}.png".format(y=i))
+        axs[1].plot(validation_time, validation_list, label='Mean Absolute Error' )
+        axs[1].legend(loc='upper right')
+        plt.show()
+        #print("./output_ml/it_{y}.png".format(y=i))
+        #file_names.append("./output_ml/it_{y}.png".format(y=i))
+        #axs[0].close()
 
 
 import imageio
