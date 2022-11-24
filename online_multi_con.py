@@ -20,6 +20,8 @@ from river import linear_model
 from river import optim
 from river import preprocessing
 
+from sklearn.metrics import r2_score
+
 hostname = 'localhost'
 port='5432'
 username = 'postgres'
@@ -39,6 +41,7 @@ cur = conn.cursor()
 file_names = []
 validation_list = []
 validation_time=[]
+r2_list = []
 
 def mae(y_true, predictions):
     y_true, predictions = np.array(y_true), np.array(predictions)
@@ -59,7 +62,7 @@ sns.set()
 
 fig, axes = plt.subplots(nrows=2, ncols=1,sharex=True)
 
-dat.plot(x='time', y='conductivity', kind='line', ax=axes[0], color='r')	
+dat.plot(x='time', y='temperature', kind='line', ax=axes[0], color='r')	
 
 dat.plot(x='time', y='conductivity', kind='line', ax=axes[1])	
 plt.tick_params(axis='x', rotation=90)
@@ -148,9 +151,6 @@ time_series.SNARIMAX(
  )
 )
 
-fig, axes = plt.subplots(nrows=2, ncols=1,sharex=True)
-
-
 temperature_list = dat['conductivity'].values.tolist()
 
 print(temperature_list)
@@ -199,13 +199,20 @@ for i in range(len(dat)):
         validation_list.append(validation1)
         validation_time.append(i)
 
+        r2_1 = r2_score(temperature_validation, forecast)
+        r2_2 = r2_score(temperature_validation, forecast2)
+        r2_3 = r2_score(temperature_validation, forecast3)
+        r2_4 = r2_score(temperature_validation, forecast4)
+        if r2_1<0:
+            r2_1 = 0
+        r2_list.append(r2_1)
+
 
         print(temperature_filtered)
         print(time_filtered)
         #Plotting
 
-        plt.figure()
-        fig, axs = plt.subplots(2)
+        fig, axs = plt.subplots(3)
         sns.set()
         axs[0].scatter(time_filtered, temperature_filtered, c='b', alpha=0.6, s=0.1)
         axs[0].plot(time_filtered, temperature_filtered, c='orange', linewidth=0.3, label='Historic data')   
@@ -230,6 +237,11 @@ for i in range(len(dat)):
         #axs[0].savefig("./output_ml/it_{y}.png".format(y=i))
         axs[1].plot(validation_time, validation_list, label='Mean Absolute Error' )
         axs[1].legend(loc='upper right')
+
+
+
+        axs[2].plot(validation_time, r2_list, c='black', linewidth=0.3, label='Coefficient of Determination (R²)')
+        
         plt.show()
         #print("./output_ml/it_{y}.png".format(y=i))
         #file_names.append("./output_ml/it_{y}.png".format(y=i))
