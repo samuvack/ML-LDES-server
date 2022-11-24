@@ -90,3 +90,7 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/output_ml/gif_forecasting_SNARIMAX.gif?raw=true"/>
 </p>
+
+## Case study IoW (Internet of Water)
+
+
