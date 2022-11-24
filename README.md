@@ -96,3 +96,8 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/iow/plot_conductivity_temeprature.png?raw=true"/>
 </p>
+
+## Offline Machine Learning
+
+
+
