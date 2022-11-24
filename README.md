@@ -94,6 +94,5 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 ## Case study IoW (Internet of Water)
 
 <p align="center">
-  <img src="
-https://github.com/samuvack/ML-LDES-server/blob/master/iow/plot_conductivity_temeprature.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/iow/plot_conductivity_temeprature.png?raw=true"/>
 </p>
