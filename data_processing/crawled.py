@@ -27,9 +27,3 @@ def crawl_parameter(parameter_string, graph_input):
         if (str(p) == parameter_string):
 
            return str(o)
-
-
-
-
-test = crawl_parameter('http://purl.org/dc/terms/salinity', g)
-print(test)

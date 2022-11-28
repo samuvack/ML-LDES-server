@@ -132,9 +132,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                     sp (int) – defaults to 0: Seasonal order of the autoregressive part. This is the number of past target values that will be included as features.
                     sd (int) – defaults to 0: Seasonal differencing order.
                     sq (int) – defaults to 0: Seasonal order of the moving average part. This is the number of past error terms that will be included as features.
-                    """
-               
-                    
+                    """  
 
                 #Training Online Forecosting model
                 horizon=12
@@ -150,8 +148,6 @@ class webserverHandler(BaseHTTPRequestHandler):
 
                 plt.figure()
                 sns.set()
-
-                
 
                 #Plotting
                 print(forecast_output)
