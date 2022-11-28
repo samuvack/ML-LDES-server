@@ -99,5 +99,14 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 
 ## Offline Machine Learning
 
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot1.png?raw=true"/>
+</p>
 
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot2.png?raw=true"/>
+</p>
 
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot3.png?raw=true"/>
+</p>
