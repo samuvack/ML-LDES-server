@@ -99,6 +99,21 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 
 ## Offline Machine Learning
 
+Prophet Forecasting Library
+Prophet, or “Facebook Prophet,” is an open-source library for univariate (one variable) time series forecasting developed by Facebook.
+
+Prophet implements what they refer to as an additive time series forecasting model, and the implementation supports trends, seasonality, and holidays.
+
+Implements a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects
+
+— Package ‘prophet’, 2019.
+
+It is designed to be easy and completely automatic, e.g. point it at a time series and get a forecast. As such, it is intended for internal company use, such as forecasting sales, capacity, etc.
+
+For a great overview of Prophet and its capabilities, see the post:
+
+Prophet: forecasting at scale, 2017.
+
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot1.png?raw=true"/>
 </p>
