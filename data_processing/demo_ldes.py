@@ -13,8 +13,6 @@ try:
         <http://example.org/about>
         dcterms:temperature """
 
-
-        
         test = np.sin((np.pi/30)*i)*10 + 10
         i += 1
 
@@ -28,8 +26,6 @@ try:
         rdf += '"' + str(current_time) + '"@en .'
 
         url = 'http://localhost:8000/input'
-
-
 
         headers = {'Content-Type': 'application/xml'}
 

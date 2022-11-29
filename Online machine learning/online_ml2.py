@@ -8,7 +8,6 @@ import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import pandas as pd
 import pandas.io.sql as sqlio
-import psycopg2
 import seaborn as sns
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -41,9 +40,9 @@ file_names = []
 
 
 
-sql = "select replace(Replace(temperatuur_date, 'T', ' '), 'Z', '')::timestamp as time, temperatuur_value as temperature, conductiviteit_value as conductivity from public.water_quality where temperatuur_sensor = 'urn:ngsi-v2:cot-imec-be:Device:aqf-iow-JX3CPbvBck498C3uan9KNg' order by replace(Replace(temperatuur_date, 'T', ' '), 'Z', '')::timestamp"
+SQL = "select replace(Replace(temperatuur_date, 'T', ' '), 'Z', '')::timestamp as time, temperatuur_value as temperature, conductiviteit_value as conductivity from public.water_quality where temperatuur_sensor = 'urn:ngsi-v2:cot-imec-be:Device:aqf-iow-JX3CPbvBck498C3uan9KNg' order by replace(Replace(temperatuur_date, 'T', ' '), 'Z', '')::timestamp"
 
-dat = sqlio.read_sql_query(sql, conn)
+dat = sqlio.read_sql_query(SQL, conn)
 
 dat.insert(0, 'id', range(0, 0 + len(dat)))
 print(dat)
