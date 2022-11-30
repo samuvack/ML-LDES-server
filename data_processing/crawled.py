@@ -106,7 +106,7 @@ def carwl_graph(graph, list_input):
                 value = row[3]
                 print(str(value))
                 output.insert(i, float(value))
-    print(output)
+    return output
 
 
 def crawl_sensor_id(graph):
@@ -141,8 +141,8 @@ def crawl_sensor_id(graph):
 
     qres = g.query(knows_query)
     for row in qres:
-        sensor_id = row[2]
-    print(sensor_id)
+        sensorid = row[2]
+    return sensorid
         
 
 

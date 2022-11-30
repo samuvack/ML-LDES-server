@@ -21,7 +21,7 @@ import numpy as np
 from sklearn.metrics import r2_score
 from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import FOAF, RDF
-import prophet_output
+import offline_ml.prophet_output
 import data_processing.get_dataframe_sensor as get_dataframe_sensor
 
 
@@ -103,16 +103,19 @@ class webserverHandler(BaseHTTPRequestHandler):
 
                 #Get sensor_id
                 sensor_name = data_processing.crawled.crawl_sensor_id(post_body)
+                print(sensor_name)
                 
                 #get dataframe out timescaleDb
-                dataframe_sensor = get_dataframe_sensor.get_df_sensor(sensor_name)
+                dataframe_sensor = get_dataframe_sensor.get_df_sensor(str(sensor_name))
                 print(dataframe_sensor)
                 
-                test = prophet_output.prophet_output(dataframe_sensor)
+                #runs a Prophet model on timeseries defined by time and conductivity
+                test = offline_ml.prophet_output.prophet_output(dataframe_sensor, 'time', 'conductivity') 
                 print(test)
-                
                 One().set_a(test)
-
+                
+                
+                
                 # ADD PREDICTION TO GRAPH
                 self.wfile.write(test.encode())
                 return
