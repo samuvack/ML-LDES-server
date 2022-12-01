@@ -115,13 +115,13 @@ For a great overview of Prophet and its capabilities, see the post:
 Prophet: forecasting at scale, 2017.
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot1.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/offline_ml/Prophet_plot1.png?raw=true?raw=true"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot2.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/offline_ml/Prophet_plot2.png?raw=true?raw=true"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/Offline%20machine%20learning/Prophet_plot3.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/offline_ml/Prophet_plot3.png?raw=true?raw=true"/>
 </p>
