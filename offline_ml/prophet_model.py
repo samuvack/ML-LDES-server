@@ -72,7 +72,7 @@ def train_prophet_model(sensor_name):
         m = Prophet()
         m.fit(dat)  # df is a pandas.DataFrame with 'y' and 'ds' columns
 
-        with open('serialized_model_'+sensor_name_new+'.json', 'w') as fout:
+        with open('saved_models/serialized_model_'+sensor_name_new+'.json', 'w') as fout:
             fout.write(model_to_json(m))  # Save model
 
         print('prophet model is trained for sensor: ', sensor_name)
@@ -95,7 +95,7 @@ def run_prophet_model(sensor_name):
 
     sensor_name_new = get_valid_filename(sensor_name)
 
-    with open('serialized_model_'+sensor_name_new+'.json', 'r') as fin:
+    with open('saved_models/serialized_model_'+sensor_name_new+'.json', 'r') as fin:
         m = model_from_json(fin.read())  # Load model
 
     n_hours = 24
