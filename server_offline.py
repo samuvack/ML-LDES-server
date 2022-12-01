@@ -111,6 +111,10 @@ class webserverHandler(BaseHTTPRequestHandler):
                 
                 #runs a Prophet model on timeseries defined by time and conductivity
                 test = offline_ml.prophet_output.prophet_output(dataframe_sensor, 'time', 'conductivity') 
+                
+                
+                
+                
                 print(test)
                 One().set_a(test)
                 

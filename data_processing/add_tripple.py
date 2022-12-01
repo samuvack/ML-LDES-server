@@ -8,32 +8,38 @@ import get_dataframe_sensor
 
 def dataframe_to_rdf(dataframe, column_list, sensor_name):
     """extacts values out dataframe and converts them into rdf file"""
-    g = Graph()
     i = 0
-    g.bind("foaf", FOAF)
     df = pd.DataFrame({'@id': pd.Series(dtype='str'),
                        'rdfs:type': pd.Series(dtype='str'),
                        'togaf:businessCapabilityDecomposesBusinessCapability': pd.Series(dtype='str'),
-                       'rdfs:label': pd.Series(dtype='str'),
+                       'rdf:value': pd.Series(dtype='str'),
                        'rdfs:comment': pd.Series(dtype='str')
                        })
     
     for i in range(len(column_list)):
         print(column_list[i])
-        df_temp = dataframe[['time', column_list[i]]]
-        df_temp['time'] = sensor_name + '/' + df_temp['time'].astype(str)
-        df_temp['type'] = column_list[i]
-        df_temp = df_temp.rename(columns={"time": "@id", "type": "rdfs:type", column_list[i]: 'rdfs:label'})
+        df_temp = dataframe[['time', column_list[i]]][:5]
+        df_temp['time'] = range(2, 2+len(df_temp))
+        df_temp['time'] = 'im:' + df_temp['time'].astype(str)
+        df_temp['rdfs:type']='togaf:BusinessCapability'
+        
+        df_temp['togaf:businessCapabilityDecomposesBusinessCapability'] = 'im:1'
+        df_temp = df_temp.rename(columns={"time": "@id", "type": "rdfs:type", column_list[i]: 'rdf:value'})
         df = pd.concat([df,df_temp], ignore_index=True, sort=False)
-        df['togaf:businessCapabilityDecomposesBusinessCapability'] = 'test'
-        new_row = ['test', 'sensor', '',sensor_name,'']
+        new_row = ['im:1', 'togaf:BusinessCapability', '', sensor_name, '']
         print(df)
+        df['rdfs:comment'] = ''
         df.loc[-1] = new_row
         df.index = df.index + 1  # shifting index
-        df.sort_index(inplace=True) 
+        df.sort_index(inplace=True)
+        
+        # drop factor from axis 1 and make changes permanent by inplace=True
+        df.reset_index(drop=True)
+        df = df.set_index('@id')
+        print(df.index.name)
         print(df)
     g = rdfpandas.to_graph(df)
-    ttl = g.serialize(format='json-ld')
+    ttl = g.serialize(format='turtle')
     print(ttl)
 
 

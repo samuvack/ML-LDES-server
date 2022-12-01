@@ -1,3 +1,5 @@
+import time
+from prophet.serialize import model_to_json, model_from_json
 from prophet import Prophet
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -41,8 +43,30 @@ print('Last value :', last_value)
 dat.drop_duplicates(subset=['ds'])
 
 
+# import the builtin time module
+
+# Grab Currrent Time Before Running the Code
+start = time.time()
+print(start)
+
+
+
 m = Prophet()
 m.fit(dat)  # df is a pandas.DataFrame with 'y' and 'ds' columns
+
+
+end = time.time()
+total_time = end - start
+print("\n" + str(total_time))
+
+with open('serialized_model.json', 'w') as fout:
+    fout.write(model_to_json(m))  # Save model
+
+
+
+with open('serialized_model.json', 'r') as fin:
+    m = model_from_json(fin.read())  # Load model
+
 
 
 future = m.make_future_dataframe(periods=2)
@@ -52,3 +76,13 @@ forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
 values_forecasting = forecast[forecast['ds'] > last_value]
 print('filtered')
 print(values_forecasting)
+
+total_time = time.time() - end
+print("\n" + str(total_time))
+
+
+# Python
+
+
+
+
