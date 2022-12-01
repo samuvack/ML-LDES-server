@@ -106,6 +106,8 @@ time_series.SNARIMAX(
  )
 )
 
+
+
 model3 = (
 time_series.SNARIMAX(
          p=4,
@@ -125,24 +127,26 @@ time_series.SNARIMAX(
  )
 )
 
-model4 = (
-time_series.SNARIMAX(
-p=1,
-d=0,
-q=0,
-m=12,
-sp=3,
-sq=6,
-regressor=(
-    preprocessing.StandardScaler() |
-    linear_model.LinearRegression(
-        intercept_init=110,
-        optimizer=optim.SGD(0.01),
-        intercept_lr=0.3
+def river_snarimax(p_input, m_input, sp_input, sgd_input, lr_input, model_name):
+    model_name = (
+    time_series.SNARIMAX(
+    p=p_input,
+    d=0,
+    q=0,
+    m=m_input,
+    sp=sp_input,
+    sq=6,
+    regressor=(
+        preprocessing.StandardScaler() |
+        linear_model.LinearRegression(
+            intercept_init=110,
+            optimizer=optim.SGD(sgd_input),
+            intercept_lr=lr_input
+        )
     )
-)
-)
-)
+    )
+    )
+
 
 fig, axes = plt.subplots(nrows=2, ncols=1,sharex=True)
 
@@ -169,6 +173,9 @@ for i in range(len(dat)):
     forecast3 = model3.forecast(horizon=12)
     forecast4 = model.forecast(horizon=12)
     print(forecast)
+    
+    filename = 'finalized_model.sav'
+    pickle.dump(model, open(filename, 'wb'))
 
     t_list2=[]
     temperature_filtered = []

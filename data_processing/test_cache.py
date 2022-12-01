@@ -1,4 +1,7 @@
 from functools import lru_cache
+
+
+
 @lru_cache(maxsize=2048)
 class One(object):
      def __init__(self):
@@ -13,8 +16,6 @@ class One(object):
 class new():
     def print_cache():
         print(One().get_a())
-
-
 
 # Cache
 second=One()
