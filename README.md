@@ -5,7 +5,7 @@
 The Machine Learning (ML) server for Linked Data Event Streams (LDES) is a configurable component that can be used to ingest LDES, whereafter a machine learning model can be unleashed on it. The ML-LDES server was built in the context of the VSDS project in order to easily predict, analyse, find relationships, etc. with the use of ML.
 
 ## Quick start
-First, you need the run the following command. This will install the required python packages:
+First, you need the run the following command in your terminal. This will install the required python packages:
 ```
 pip install -r requirements.txt
 ```
