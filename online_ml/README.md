@@ -1,5 +1,10 @@
 ## Online Machine Learning model
 
+<p align="center">
+  <img src="https://github.com/online-ml/river/blob/main/docs/img/logo.svg?raw=true"/>
+</p>
+
+
 # Data streams
 River is a library to build online machine learning models. Such models operate on data streams. But a data stream is a bit of a vague concept.
 
