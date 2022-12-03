@@ -17,25 +17,27 @@ docker-compose up --build -d
 * runs postgis on `http://localhost:5432`
 * runs pgadmin on `http://localhost:8001`
 
+
+To showcast the different Machine Learning forecasting/estimations (regression, online ML, offline ML, offline/online ML), first LDES members 
+
+First of all, LDES members must be sent to the ML-LDES server via POST request. For this we use Apache NIFI (included in docker container) to pull the data stream into the ML-LDES server.
+
+Go to: https://localhost:8443/nifi/
+
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png?raw=true"/>
+</p>
+
+
+## Operation of the server
+
 Afterwards, it becomes possible to run the ML-LDES server by the following command:
 ```
 python server.py
 ```
 
 
-
-## Documentation
-
-The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model. As a test, it was currently chosen to apply different regression models to the data:
-* linear regression,
-* multiple linear regression,
-* polynomial regression,
-* decision tree regression,
-* random forest regression.
-
-When the ML model has calculated to predicted temperature based on the given salinity value, a JSON respons is send back with all the output data.
-
-## Test
+The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model.
 
 Example of LDES member:
 
@@ -60,6 +62,17 @@ this will be automatically converted to json-ld under the hood:
 "temperature": "10"
 }
 ```
+
+Depending on which ML model server is used, a different forecasting/estimation is calculated based on the fetched members.
+
+To show cast the different possibilities, a Internet of Waters (IoW) LDES is used, containing information about temperature and conductivity:
+
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plot_conductivity_temeprature.png?raw=true"/>
+</p>
+
+## Regression model
+
 Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
 
 Based on a given salinity value, the temperature is predicted using the trained ML regression models (see figure).
@@ -68,15 +81,26 @@ Based on a given salinity value, the temperature is predicted using the trained 
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plots.png?raw=true"/>
 </p>
 
+ As a test, it was currently chosen to apply different regression models to the data:
+* linear regression,
+* multiple linear regression,
+* polynomial regression,
+* decision tree regression,
+* random forest regression.
+
+When the ML model has calculated to predicted temperature based on the given salinity value, a JSON respons is send back with all the output data.
+
 
 Of course a better way is by looking at the temporal scale (and even better spatio-temporal scale) instead of looking at all the historical measurments at ones (e.g. the case of regression models).
+
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/timeseries3.png?raw=true"/>
 </p>
 
+Therefore some forecasting models are showcasted underneath:
+
   ## Online Machine Learning
   
-  As a test, Holt Winters forecasting model from the Python package River has been tested. Holt-Winters forecasting is a way to model and predict the behavior of a sequence of values over time (time series). Holt-Winters is one of the most popular forecasting techniques for time series.
   
 
 <p align="center">
@@ -91,11 +115,7 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/output_ml/gif_forecasting_SNARIMAX.gif?raw=true"/>
 </p>
 
-## Case study IoW (Internet of Water)
 
-<p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/iow/plot_conductivity_temeprature.png?raw=true"/>
-</p>
 
 ## Offline Machine Learning
 
@@ -125,3 +145,12 @@ Prophet: forecasting at scale, 2017.
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/offline_ml/Prophet_plot3.png?raw=true?raw=true"/>
 </p>
+
+## Combination offline / online Machine learning
+
+As a test, Holt Winters forecasting model from the Python package River has been tested. Holt-Winters forecasting is a way to model and predict the behavior of a sequence of values over time (time series). Holt-Winters is one of the most popular forecasting techniques for time series.
+
+For this ML model, first a batch dataset needs to be available before the ML model can run and forecast incrementally based on fetched members.
+
+
+  
