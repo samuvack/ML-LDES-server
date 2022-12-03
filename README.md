@@ -81,7 +81,6 @@ Of course a better way is by looking at the temporal scale (and even better spat
 
   ## Online Machine Learning
   
-  As a test, Holt Winters forecasting model from the Python package River has been tested. Holt-Winters forecasting is a way to model and predict the behavior of a sequence of values over time (time series). Holt-Winters is one of the most popular forecasting techniques for time series.
   
 
 <p align="center">
@@ -130,3 +129,12 @@ Prophet: forecasting at scale, 2017.
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/offline_ml/Prophet_plot3.png?raw=true?raw=true"/>
 </p>
+
+## Combination offline / online Machine learning
+
+As a test, Holt Winters forecasting model from the Python package River has been tested. Holt-Winters forecasting is a way to model and predict the behavior of a sequence of values over time (time series). Holt-Winters is one of the most popular forecasting techniques for time series.
+
+For this ML model, first a batch dataset needs to be available before the ML model can run and forecast incrementally based on fetched members.
+
+
+  
