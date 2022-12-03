@@ -17,16 +17,25 @@ docker-compose up --build -d
 * runs postgis on `http://localhost:5432`
 * runs pgadmin on `http://localhost:8001`
 
+
+To showcast the different Machine Learning forecasting/estimations (regression, online ML, offline ML, offline/online ML), first LDES members 
+
+First of all, LDES members must be sent to the ML-LDES server via POST request. For this we use Apache NIFI (included in docker container) to pull the data stream into the ML-LDES server.
+
+Go to: https://localhost:8443/nifi/
+
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png?raw=true"/>
+</p>
+
+
+## Operation of the server
+
 Afterwards, it becomes possible to run the ML-LDES server by the following command:
 ```
 python server.py
 ```
 
-
-
-
-
-## Operation of the server
 
 The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model.
 
