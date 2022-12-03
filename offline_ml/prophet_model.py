@@ -72,7 +72,7 @@ def train_prophet_model(sensor_name):
         m = Prophet()
         m.fit(dat)  # df is a pandas.DataFrame with 'y' and 'ds' columns
 
-        with open('saved_models/serialized_model_'+sensor_name_new+'.json', 'w') as fout:
+        with open('serialized_model_'+sensor_name_new+'.json', 'w') as fout:
             fout.write(model_to_json(m))  # Save model
 
         print('prophet model is trained for sensor: ', sensor_name)
@@ -95,7 +95,7 @@ def run_prophet_model(sensor_name):
 
     sensor_name_new = get_valid_filename(sensor_name)
 
-    with open('saved_models/serialized_model_'+sensor_name_new+'.json', 'r') as fin:
+    with open('serialized_model_'+sensor_name_new+'.json', 'r') as fin:
         m = model_from_json(fin.read())  # Load model
 
     n_hours = 24
@@ -118,8 +118,9 @@ def run_prophet_model(sensor_name):
     print('filtered')
     print(values_forecasting)
 
-#train_prophet_model('urn:ngsi-v2:cot-imec-be:Device:aqf-iow-JX3CPbvBck498C3uan9KNg')
-#run_prophet_model('urn:ngsi-v2:cot-imec-be:Device:aqf-iow-JX3CPbvBck498C3uan9KNg')
+train_prophet_model('urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-XFHusUMR9spmCDhwDZ7At8')
+run_prophet_model(
+    'urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-XFHusUMR9spmCDhwDZ7At8')
 
 def train_all_models():
     sql = """select * from (select distinct(id) from devices) as q"""
@@ -129,4 +130,4 @@ def train_all_models():
         print(row[1][0])
         train_prophet_model(str(row[1][0]))
     
-train_all_models()
+#train_all_models()

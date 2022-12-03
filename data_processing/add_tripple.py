@@ -44,6 +44,7 @@ def dataframe_to_rdf(dataframe, column_list, sensor_name):
 
 
 df = get_dataframe_sensor.get_df_sensor('urn:ngsi-v2:cot-imec-be:Device:imec-iow-8o4PWPeZtfhQCX28MA9kTb')
+print(df)
 
 dataframe_to_rdf(df, ['temperature'],
                  'urn:ngsi-v2:cot-imec-be:Device:imec-iow-8o4PWPeZtfhQCX28MA9kTb')
