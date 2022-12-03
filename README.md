@@ -16,9 +16,10 @@ docker-compose up --build -d
 * runs jupyter notebook on `http://localhost:7777/ipython/`
 * runs postgis on `http://localhost:5432`
 * runs pgadmin on `http://localhost:8001`
+* runs Apache Nifi in `http://localhost:8443/nifi`
 
 
-To showcast the different Machine Learning forecasting/estimations (regression, online ML, offline ML, offline/online ML), first LDES members 
+To showcast the different Machine Learning forecasts/estimations (regression, online ML, offline ML, offline/online ML), first LDES members need to be
 
 First of all, LDES members must be sent to the ML-LDES server via POST request. For this we use Apache NIFI (included in docker container) to pull the data stream into the ML-LDES server.
 
