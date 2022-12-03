@@ -25,7 +25,7 @@ First of all, LDES members must be sent to the ML-LDES server via POST request. 
 Go to: https://localhost:8443/nifi/
 
 <p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/logo.png?raw=true"/>
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/apache_nifi.png?raw=true"/>
 </p>
 
 
