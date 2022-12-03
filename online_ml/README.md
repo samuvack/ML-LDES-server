@@ -1,7 +1,7 @@
 ## Online Machine Learning model
 
 <p align="center">
-  <img src="https://github.com/online-ml/river/blob/main/docs/img/logo.svg?raw=true"/>
+  <img src="https://github.com/online-ml/river/blob/main/docs/img/logo.svg?raw=true" height="20px"/>
 </p>
 
 
