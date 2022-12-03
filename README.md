@@ -63,6 +63,12 @@ this will be automatically converted to json-ld under the hood:
 
 Depending on which ML model server is used, a different forecasting/estimation is calculated based on the fetched members.
 
+To show cast the different possibilities, a Internet of Waters (IoW) LDES is used, containing information about temperature and conductivity:
+
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plot_conductivity_temeprature.png?raw=true"/>
+</p>
+
 ## Regression model
 
 Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
@@ -95,11 +101,7 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/output_ml/gif_forecasting_SNARIMAX.gif?raw=true"/>
 </p>
 
-## Case study IoW (Internet of Water)
 
-<p align="center">
-  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plot_conductivity_temeprature.png?raw=true"/>
-</p>
 
 ## Offline Machine Learning
 
