@@ -61,6 +61,8 @@ this will be automatically converted to json-ld under the hood:
 }
 ```
 
+Depending on which ML model server is used, a different forecasting/estimation is calculated based on the fetched members.
+
 ## Regression model
 
 Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
