@@ -1,7 +1,7 @@
 ## Offline Machine Learning model
 
 <p align="center">
-  <img src="https://facebook.github.io/prophet/static/wordmark.svg](https://sahbichaieb.com/static/9021051fd89094f6d5a247e7ec705a7d/5595f/prophet_blue.png?raw=true"/>
+  <img src="https://sahbichaieb.com/static/9021051fd89094f6d5a247e7ec705a7d/5595f/prophet_blue.png?raw=true"/>
 </p>
 
 
