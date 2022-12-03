@@ -19,9 +19,9 @@ docker-compose up --build -d
 * runs Apache Nifi in `http://localhost:8443/nifi`
 
 
-To showcast the different Machine Learning forecasts/estimations (regression, online ML, offline ML, offline/online ML), first LDES members need to be
+To showcase the different Machine Learning forecasts/estimations (regression, online ML, offline ML, offline/online ML) we use an Internet of Water (IoW) Linked Data Event Stream.
 
-First of all, LDES members must be sent to the ML-LDES server via POST request. For this we use Apache NIFI (included in docker container) to pull the data stream into the ML-LDES server.
+First, LDES Client must send the LDES members to the ML-LDES server via POST requests. We use Apache NIFI (included in the docker container) to pull the data stream into the ML-LDES server.
 
 Go to: https://localhost:8443/nifi/
 
@@ -64,9 +64,9 @@ this will be automatically converted to json-ld under the hood:
 }
 ```
 
-Depending on which ML model server is used, a different forecasting/estimation is calculated based on the fetched members.
+Depending on which ML model server is applied, a different forecasting/estimation is computed based on the fetched members.
 
-To show cast the different possibilities, a Internet of Waters (IoW) LDES is used, containing information about temperature and conductivity:
+To showcase the different possibilities, an Internet of Waters (IoW) LDES is applied, containing information about temperature and conductivity:
 
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plot_conductivity_temeprature.png?raw=true"/>
@@ -76,7 +76,7 @@ To show cast the different possibilities, a Internet of Waters (IoW) LDES is use
 
 Hereafter, predefined relevant parameters (e.g., temperature, salinity) are extracted out the json-ld.
 
-Based on a given salinity value, the temperature is predicted using the trained ML regression models (see figure).
+Based on a given conductivity value, the temperature is predicted using the trained ML regression models (see figure).
 
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plots.png?raw=true"/>
