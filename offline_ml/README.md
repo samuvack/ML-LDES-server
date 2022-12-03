@@ -1,7 +1,9 @@
 ## Offline Machine Learning model
 
+<p align="center">
+  <img src="https://facebook.github.io/prophet/static/wordmark.svg?raw=true"/>
+</p>
 
-https://facebook.github.io/prophet/static/wordmark.svg
 
 Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly,
 and daily seasonality, plus holiday effects. It works best with time series that have strong seasonal effects and several seasons of
