@@ -24,18 +24,11 @@ python server.py
 
 
 
-## Documentation
 
-The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model. As a test, it was currently chosen to apply different regression models to the data:
-* linear regression,
-* multiple linear regression,
-* polynomial regression,
-* decision tree regression,
-* random forest regression.
-
-When the ML model has calculated to predicted temperature based on the given salinity value, a JSON respons is send back with all the output data.
 
 ## Operation of the server
+
+The ML-LDES server listens on port 8000 and receives LDES N-tripples. Immediately afterwards, the relevant data is injected into the Machine Learning model.
 
 Example of LDES member:
 
@@ -79,11 +72,23 @@ Based on a given salinity value, the temperature is predicted using the trained 
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/plots.png?raw=true"/>
 </p>
 
+ As a test, it was currently chosen to apply different regression models to the data:
+* linear regression,
+* multiple linear regression,
+* polynomial regression,
+* decision tree regression,
+* random forest regression.
+
+When the ML model has calculated to predicted temperature based on the given salinity value, a JSON respons is send back with all the output data.
+
 
 Of course a better way is by looking at the temporal scale (and even better spatio-temporal scale) instead of looking at all the historical measurments at ones (e.g. the case of regression models).
+
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/timeseries3.png?raw=true"/>
 </p>
+
+Therefore some forecasting models are showcasted underneath:
 
   ## Online Machine Learning
   
