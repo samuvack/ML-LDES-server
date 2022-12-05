@@ -117,6 +117,10 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
 </p>
 
 
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/online_ml/online_iow_multiple_easy2.gif?raw=true"/>
+</p>
+
 
 ## Offline Machine Learning
 
