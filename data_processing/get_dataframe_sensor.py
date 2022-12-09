@@ -55,3 +55,4 @@ def get_df_sensor(sensor_name):
     return dat
 
 print(get_df_sensor('urn:ngsi-v2:cot-imec-be:Device:dwg-iow-VvadXzCVFMBUK4WDEwfrkK'))
+

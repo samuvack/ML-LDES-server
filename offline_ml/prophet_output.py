@@ -19,23 +19,23 @@ def prophet_output(dat, time_parameter, value_parameter):
     dat.rename(columns={str(value_parameter): 'y'}, inplace=True)
     
     dat = dat.drop_duplicates(subset=['ds'])
-    print('cleaned dataframe')
-    print(dat)
+    #print('cleaned dataframe')
+    #print(dat)
     
     if len(dat)<20:
         return
     else:    
         last_value = dat['ds'].iat[-1]
-        print(last_value)
+        #print(last_value)
         m = Prophet()
         # df is a pandas.DataFrame with 'y' and 'ds' columns
         m.fit(dat)
         print(m)
-        future = m.make_future_dataframe(periods=2)
-        print(future)
+        future = m.make_future_dataframe(periods=60, freq='5min')
+        #print(future)
         forecast = m.predict(future)
-        print('forecast')
-        print(forecast)
-        print(forecast['ds'])
+        #print('forecast')
+        #print(forecast)
+        #print(forecast['ds'])
         values_forecasting = forecast[forecast['ds'] > last_value]
     return values_forecasting
