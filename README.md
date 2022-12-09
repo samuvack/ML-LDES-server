@@ -25,9 +25,15 @@ First, LDES Client must send the LDES members to the ML-LDES server via POST req
 
 Go to: https://localhost:8443/nifi/
 
+Pipeline for Online ML (LDES-client to invoke HTTP (Post request)):
+
 <p align="center">
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/images/apache_nifi.png?raw=true"/>
 </p>
+
+
+Pipeline for Offline ML (LDES-Client to TimescaleDB):
+![Nifi_timescale](https://user-images.githubusercontent.com/15192194/205595307-2d90ef65-73aa-4360-a2d8-94af87eb62b8.png)
 
 
 ## Operation of the server
@@ -116,6 +122,10 @@ Via the python script `python ./data_processing/demo_ldes_input.py`) a demo LDES
   <img src="https://github.com/samuvack/ML-LDES-server/blob/master/output_ml/gif_forecasting_SNARIMAX.gif?raw=true"/>
 </p>
 
+
+<p align="center">
+  <img src="https://github.com/samuvack/ML-LDES-server/blob/master/online_ml/online_iow_multiple_easy2.gif?raw=true"/>
+</p>
 
 
 ## Offline Machine Learning
