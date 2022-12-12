@@ -2,6 +2,7 @@ from river import drift
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
+import random
 
 # Generate data for 3 distributions
 random_state = np.random.RandomState(seed=42)
@@ -33,8 +34,6 @@ def plot_data(dist_a, dist_b, dist_c, drifts=None):
 
 plot_data(dist_a, dist_b, dist_c)
 
-import random
-from river import drift
 
 rng = random.Random(12345)
 adwin = drift.ADWIN()
