@@ -50,8 +50,7 @@ def createForecastingTimeseries(sensorId, timestamp):
     return g
 
 
-g = createForecastingTimeseries(
-    "urn:ngsi-v2:cot-imec-be:Device:imec-iow-kfoRZfEsBmK9Kuo4EpUBJm", "timestamp2")
+g = createForecastingTimeseries("urn:ngsi-v2:cot-imec-be:Device:imec-iow-kfoRZfEsBmK9Kuo4EpUBJm", "timestamp2")
 
 
 context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}

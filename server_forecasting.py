@@ -46,6 +46,7 @@ class webserverHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
 
+                print('test')
                 """
                 output = ""
                 output += '<html><body>Hello!'
