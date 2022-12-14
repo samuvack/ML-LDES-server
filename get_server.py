@@ -84,7 +84,8 @@ class webserverHandler(BaseHTTPRequestHandler):
                     
                     context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}
 
-                    output=g.serialize(format='n3',context=context, indent=4)
+                    output = g.serialize(
+                        format='n3', context=context, indent=4)
                     print(output)
                     #output = One().get_a()
                     #output = output + str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + '_nu_komt_het_' + str(row[1][0])
