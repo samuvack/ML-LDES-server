@@ -4,8 +4,6 @@ from rdflib import Graph, URIRef, Literal, BNode
 from rdflib.namespace import FOAF, RDF
 import get_dataframe_sensor
 
-
-
 def dataframe_to_rdf(dataframe, column_list, sensor_name):
     """extacts values out dataframe and converts them into rdf file"""
     i = 0
@@ -42,10 +40,8 @@ def dataframe_to_rdf(dataframe, column_list, sensor_name):
     ttl = g.serialize(format='turtle')
     print(ttl)
 
-
 df = get_dataframe_sensor.get_df_sensor('urn:ngsi-v2:cot-imec-be:Device:imec-iow-8o4PWPeZtfhQCX28MA9kTb')
 print(df)
 
 dataframe_to_rdf(df, ['temperature'],
                  'urn:ngsi-v2:cot-imec-be:Device:imec-iow-8o4PWPeZtfhQCX28MA9kTb')
-

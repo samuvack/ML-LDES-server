@@ -13,6 +13,7 @@ from datetime import datetime
 import psycopg2
 import numpy as np  # linear algebra
 import pandas.io.sql as sqlio
+import data_processing.output
 
 HOSTNAME = 'localhost'
 PORT = '5432'
@@ -56,21 +57,37 @@ class webserverHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
+            sql = """select * from trained_models ;"""
+            devices = sqlio.read_sql_query(sql, conn)
+            devices.insert(0, 'row', range(0, 0 + len(devices)))
+            
             #create multiple endpoints on self.path per sensor_id in the form of /output/sensor_id
-            for i in range(10):
-                if self.path.endswith("/output/" + str(i)):
+            for row in devices.iterrows():
+                if self.path.endswith("/output/" + str(row[1][0])):
                     self.send_response(200)
                     self.send_header('Content-Type', 'text/html')
                     self.end_headers()
 
                     
-                    #sql = """select * from (select sensor_id, time, forecast, ROW_NUMBER () OVER (ORDER BY sensor_id) from public.forecast where order by time) x where ROW_NUMBER = """ + str(i) + """;"""
-                    #print(sql)
-                    #dat = sqlio.read_sql_query(sql, conn)
-                    #dat.insert(0, 'id', range(0, 0 + len(dat)))
-                            
-                    output = One().get_a()
-                    output = output + str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + '_nu_komt_het_' + str(i)
+                    sql = """select * from public.forecast where sensor_id = '""" + str(row[1][1]) + """';"""
+                    dat = sqlio.read_sql_query(sql, conn)
+                    dat.insert(0, 'id', range(0, 0 + len(dat)))
+                    print(dat)
+                    
+                    rdf = data_processing.output.createForecastingTimeseries(str(row[1][1]), '2022-12-12')
+                    g = Graph().parse(data=rdf, format='n3')
+                    
+                    #iterate through dat dataframe and add the data to the rdf graph
+                    for j in dat.iterrows():
+                        data_processing.output.addForecastingMember(
+                            g, j[1][1], j[1][2])  # adds new forecasting member to RDF
+                    
+                    context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}
+
+                    output=g.serialize(format='n3',context=context, indent=4)
+                    print(output)
+                    #output = One().get_a()
+                    #output = output + str(datetime.now().strftime("%d/%m/%Y %H:%M:%S")) + '_nu_komt_het_' + str(row[1][0])
 
                     self.wfile.write(output.encode())
                     #print(output)

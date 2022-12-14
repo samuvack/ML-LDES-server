@@ -46,14 +46,14 @@ def createForecastingTimeseries(sensorId, timestamp):
         prov:generatedAtTime "2022-12-12T11:46:08.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
     """
 
-    g = Graph().parse(data=testrdf, format='n3')
-    return g
+
+    return testrdf
 
 
-g = createForecastingTimeseries("urn:ngsi-v2:cot-imec-be:Device:imec-iow-kfoRZfEsBmK9Kuo4EpUBJm", "timestamp2")
+#g = createForecastingTimeseries("urn:ngsi-v2:cot-imec-be:Device:imec-iow-kfoRZfEsBmK9Kuo4EpUBJm", "timestamp2")
 
 
-context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}
+#context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}
 
 
 #creates function that adds a new example:Forecasting member to example:forecastingCollection in Graph g
@@ -79,9 +79,9 @@ def changeIsForecastingFor(g, newIsForecastingFor):
     g.set((URIRef("http://example.org/id/forecasting/sensorId/timestamp"), URIRef("http://example.org/isForecastingFor"), URIRef(newIsForecastingFor)))
     
 
-addForecastingMember(g, "2021-05-14T11:46:08.000Z", 28) #adds new forecasting member to RDF
-changeForecastedProperty(g, 'http://example.org/id/conductiviteit')
+#addForecastingMember(g, "2021-05-14T11:46:08.000Z", 28) #adds new forecasting member to RDF
+#changeForecastedProperty(g, 'http://example.org/id/conductiviteit')
 
 
 # Code that prints the Graph g in N3 format
-print(g.serialize(format='n3', context=context, indent=4))
+#print(g.serialize(format='n3', context=context, indent=4))
