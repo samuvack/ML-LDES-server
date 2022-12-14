@@ -20,19 +20,19 @@ services:
     ports:
       - 8001:80
     depends_on:
-      - postgis
+      - timescaledb
   
-  postgis:
-    build: ./docker/postgis
+  timescaledb:
+    #image: timescale/timescaledb-ha:pg14-latest
+    build: ./timescaledb/
     container_name: ldes-postgis
-    environment:
-      POSTGRES_DB: iow
-      POSTGRES_USER: ldes
-      POSTGRES_PASSWORD: ldes
-    volumes:
-        - geo-db-data:/var/lib/postgresql
     ports:
-      - 5432:5432
+      - 5432:5432/tcp
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: water_quality
+
   
   notebook:
     image: bgruening/docker-jupyter-notebook
