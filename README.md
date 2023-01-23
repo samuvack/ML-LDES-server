@@ -167,6 +167,8 @@ For this ML model, first a batch dataset needs to be available before the ML mod
  ## Output as a collection
  
  
+ When running the get_server.py script, the ML forecasting is generated in the form of a published collection:
+ 
 <pre><code> 
 @prefix example: <http://example.org/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
