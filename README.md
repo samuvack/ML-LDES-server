@@ -247,6 +247,6 @@ for example ``localhost:8000/output/4``:
             example:forecastedTimestamp "2022-11-22T18:32:13"^^xsd:datetime ;
             example:value 9.365354e+02 ] ;
     example:isForecastingFor <urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-4WYSEqBKuD2UKpNEQyW8AJ> ;
-    example:unit "Â°C"^^xsd:celcius ;
+    example:unit "°C"^^xsd:celcius ;
     prov:generatedAtTime "2022-12-12T11:46:08+00:00"^^xsd:dateTime .
 </code></pre>
