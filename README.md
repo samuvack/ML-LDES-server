@@ -164,4 +164,86 @@ Holt-Winters forecasting is a way to model and predict the behaviour of a sequen
 For this ML model, first a batch dataset needs to be available before the ML model can run and forecast incrementally based on fetched members.
 
 
-  
+ ## Output as a collection
+ 
+ 
+<pre><code> 
+@prefix example: <http://example.org/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/id/forecasting/urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-4WYSEqBKuD2UKpNEQyW8AJ> a example:ForecastingTimeseries ;
+    example:forecastedProperty <http://example.org/id/temperatuur> ;
+    example:forecastingCollection [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T13:32:13"^^xsd:datetime ;
+            example:value 9.500221e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T09:32:13"^^xsd:datetime ;
+            example:value 9.39572e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T14:32:13"^^xsd:datetime ;
+            example:value 9.480413e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-21T22:32:13"^^xsd:datetime ;
+            example:value 9.628977e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T12:32:13"^^xsd:datetime ;
+            example:value 9.497323e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T01:32:13"^^xsd:datetime ;
+            example:value 9.551929e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T15:32:13"^^xsd:datetime ;
+            example:value 9.446084e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T10:32:13"^^xsd:datetime ;
+            example:value 9.434172e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T11:32:13"^^xsd:datetime ;
+            example:value 9.472341e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T16:32:13"^^xsd:datetime ;
+            example:value 9.409902e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T20:32:13"^^xsd:datetime ;
+            example:value 9.342904e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T00:32:13"^^xsd:datetime ;
+            example:value 9.57794e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T06:32:13"^^xsd:datetime ;
+            example:value 9.373796e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-21T23:32:13"^^xsd:datetime ;
+            example:value 9.603254e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T02:32:13"^^xsd:datetime ;
+            example:value 9.521727e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T08:32:13"^^xsd:datetime ;
+            example:value 9.36885e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T04:32:13"^^xsd:datetime ;
+            example:value 9.443625e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T17:32:13"^^xsd:datetime ;
+            example:value 9.382099e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T05:32:13"^^xsd:datetime ;
+            example:value 9.40377e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T07:32:13"^^xsd:datetime ;
+            example:value 9.36097e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T19:32:13"^^xsd:datetime ;
+            example:value 9.354825e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T03:32:13"^^xsd:datetime ;
+            example:value 9.485019e+02 ],
+        [ a example:Forecasting ;
+            example:forecastedTimestamp "2022-11-22T18:32:13"^^xsd:datetime ;
+            example:value 9.365354e+02 ] ;
+    example:isForecastingFor <urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-4WYSEqBKuD2UKpNEQyW8AJ> ;
+    example:unit "Â°C"^^xsd:celcius ;
+    prov:generatedAtTime "2022-12-12T11:46:08+00:00"^^xsd:dateTime .
+</code></pre>
