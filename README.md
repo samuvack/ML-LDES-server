@@ -171,7 +171,7 @@ For this ML model, first a batch dataset needs to be available before the ML mod
 for example ``localhost:8000/output/4``:
  
 <pre><code>
-@prefix example: <http://example.org/> .
+@prefix example: \<http://example.org/\> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
