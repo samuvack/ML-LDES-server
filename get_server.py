@@ -22,14 +22,12 @@ PASSWORD = 'password'
 DATABASE = 'water_quality'
 
 # Try to connect
-
 try:
     conn = psycopg2.connect(host=HOSTNAME, user=USERNAME,
                             password=PASSWORD, dbname=DATABASE, port=PORT)
     print('connected')
 except:
     print("I am unable to connect to the database.")
-
 cur = conn.cursor()
 
 
@@ -37,16 +35,13 @@ cur = conn.cursor()
 class One(object):
     def __init__(self):
         self.a = None
-
     def set_a(self, val):
         self.a = val
-
     def get_a(self):
         return self.a
 
 
 One().set_a('There is no POST request received yet in the ml server')
-
 file_names = []
 y_list = []
 time_history = [0]
@@ -65,22 +60,21 @@ class webserverHandler(BaseHTTPRequestHandler):
             for row in devices.iterrows():
                 if self.path.endswith("/output/" + str(row[1][0])):
                     self.send_response(200)
-                    self.send_header('Content-Type', 'text/html')
+                    self.send_header('Content-Type', 'text/turtle')
                     self.end_headers()
-
                     
                     sql = """select * from public.forecast where sensor_id = '""" + str(row[1][1]) + """';"""
                     dat = sqlio.read_sql_query(sql, conn)
                     dat.insert(0, 'id', range(0, 0 + len(dat)))
                     print(dat)
                     
-                    rdf = data_processing.output.createForecastingTimeseries(str(row[1][1]), '2022-12-12')
+                    rdf = data_processing.output.createForecastingTimeseries(str(row[1][1]))
                     g = Graph().parse(data=rdf, format='n3')
                     
                     #iterate through dat dataframe and add the data to the rdf graph
                     for j in dat.iterrows():
                         data_processing.output.addForecastingMember(
-                            g, j[1][1], j[1][2])  # adds new forecasting member to RDF
+                            g, j[1][1], j[1][2], row[1][1])  # adds new forecasting member to RDF
                     
                     context = {"@vocab": "http://purl.org/dc/terms/", "@language": "en"}
 

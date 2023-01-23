@@ -3,7 +3,7 @@ import imageio
 from os import walk
 
 f = []
-for (dirpath, dirnames, filenames) in walk('../output_ml'):
+for (dirpath, dirnames, filenames) in walk('C:/Users/samue/OneDrive - Vlaamse overheid - Office 365/Github_large_files/multi/'):
     f.extend(filenames)
     break
 
@@ -23,5 +23,5 @@ for x in sorted_nicely(f):
 
 images = []
 for filename in test:
-    images.append(imageio.imread('../output_ml/' + filename))
+    images.append(imageio.imread('C:/Users/samue/OneDrive - Vlaamse overheid - Office 365/Github_large_files/multi/' + filename))
 imageio.mimsave('../output_ml/movie_iow_multiple.gif', images)

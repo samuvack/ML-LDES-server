@@ -20,29 +20,17 @@ SOSA.Sensor
 
 
 #create function that insert <http://example.org/id/forecasting/sensorId/timestamp> in testrdf
-def createForecastingTimeseries(sensorId, timestamp):
+def createForecastingTimeseries(sensorId):
     testrdf = """
     @prefix example: <http://example.org/> .
     @prefix measurement: <http://def.isotc211.org/iso19156/2011/Measurement#> .
     @prefix prov: <http://www.w3.org/ns/prov#> .
 
-    <http://example.org/id/forecasting/""" + sensorId + """/"""+timestamp+""">
+    <http://example.org/id/forecasting/""" + str(sensorId) +""">
         a example:ForecastingTimeseries ;
         example:isForecastingFor <"""+ sensorId + """> ;
         example:forecastedProperty <http://example.org/id/temperatuur> ;
         example:unit "°C"^^<http://www.w3.org/2001/XMLSchema#celcius> ;
-        example:forecastingCollection
-            [
-                a example:Forecasting;
-                example:forecastedTimestamp "2021-05-14T11:46:08.000Z"^^<http://www.w3.org/2001/XMLSchema#datetime> ;
-                example:value 25;
-            ],
-            [
-                a example:Forecasting;
-                example:forecastedTimestamp "2021-05-14T11:46:08.000Z"^^<http://www.w3.org/2001/XMLSchema#datetime> ;
-                example:value 26;
-            ];
-        
         prov:generatedAtTime "2022-12-12T11:46:08.000Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
     """
 
@@ -57,12 +45,13 @@ def createForecastingTimeseries(sensorId, timestamp):
 
 
 #creates function that adds a new example:Forecasting member to example:forecastingCollection in Graph g
-def addForecastingMember(g, timestamp, value):
+def addForecastingMember(g, timestamp, value, sensorId):
     newForecasting = BNode()
     g.add((newForecasting, RDF.type, URIRef("http://example.org/Forecasting")))
     g.add((newForecasting, URIRef("http://example.org/forecastedTimestamp"), Literal(timestamp, datatype=XSD.datetime)))
     g.add((newForecasting, URIRef("http://example.org/value"), Literal(value)))
-    g.add((URIRef("http://example.org/id/forecasting/sensorId/timestamp"), URIRef("http://example.org/forecastingCollection"), newForecasting))
+    g.add((URIRef("http://example.org/id/forecasting/"+ Literal(sensorId)),
+          URIRef("http://example.org/forecastingCollection"), newForecasting))
 
 
 #function that change value of example:forecastedProperty in Graph g
