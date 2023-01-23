@@ -170,7 +170,7 @@ For this ML model, first a batch dataset needs to be available before the ML mod
  When running the ``get_server.py`` script, the ML forecasting is generated in the form of a published collection on ``localhost:8000/output/{number}``
 for example ``localhost:8000/output/4``:
  
-<pre><code> 
+<pre><code> $$
 @prefix example: <http://example.org/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -249,4 +249,4 @@ for example ``localhost:8000/output/4``:
     example:isForecastingFor <urn:ngsi-v2:cot-imec-be:WaterQualityObserved:imec-iow-4WYSEqBKuD2UKpNEQyW8AJ> ;
     example:unit "°C"^^xsd:celcius ;
     prov:generatedAtTime "2022-12-12T11:46:08+00:00"^^xsd:dateTime .
-</code></pre>
+$$</code></pre>
