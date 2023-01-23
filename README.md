@@ -167,7 +167,7 @@ For this ML model, first a batch dataset needs to be available before the ML mod
  ## Output as a collection
  
  
- When running the get_server.py script, the ML forecasting is generated in the form of a published collection on localhost:8000/output/{number}
+ When running the ``get_server.py`` script, the ML forecasting is generated in the form of a published collection on ``localhost:8000/output/{number}``
 for example ``localhost:8000/output/4``:
  
 <pre><code> 
